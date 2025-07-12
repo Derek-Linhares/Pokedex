@@ -42,7 +42,7 @@ window.addEventListener("load", () => {
       canOn = false;
      
 
-      // ✅ Agora sim: habilita clique após 5 segundos
+     
       setTimeout(() => {
         canClick = true;
         console.log("pode Clicar");
@@ -59,7 +59,7 @@ window.addEventListener("load", () => {
 function turnOn() {
   if (canOn) {
     localStorage.setItem("autoTurnOn", "true");
-    location.reload(); // Após isso, tudo abaixo será ignorado, como esperado
+    location.reload(); 
   }
 }
 

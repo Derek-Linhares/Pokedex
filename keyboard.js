@@ -13,7 +13,7 @@ keys.forEach(k => {
   btn.textContent = k;
   btn.classList.add("key");
 
-  // Atribui classes e IDs para teclas especiais
+ 
   if (k === "←") {
     btn.id = "key-backspace";
     btn.classList.add("wide");
@@ -68,13 +68,13 @@ function handleSearchInput(input) {
   if (!query) return;
 
   if (!isNaN(query)) {
-    // É um ID numérico
+  
   preloadInitial(Number(query));
   } else {
     
     fetchPokemon(query)
      .then(poke => preloadInitial(poke.id))
-      .catch(err => alert("Pokémon não encontrado"));
+      .catch(err => console.log("Pokemon Not Found"));
   }
 }
 
