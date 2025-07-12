@@ -3,6 +3,8 @@
     margin: 0;
     box-sizing: border-box;
     user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-focus-ring-color: transparent;
 }
 
 body{
@@ -163,8 +165,8 @@ header{
   border: 4px solid  rgb(187, 0, 0);
   padding: 20px;
   margin-bottom: 20px;
-  width: 350px;
-  height: 20px;
+  width: 21.50rem;
+  height: 1.5rem;
   text-align: center;
   text-align: left;
   font-size: 18px;
@@ -176,9 +178,11 @@ header{
 
 
 #digitalKeyboard{
-    position: absolute;
-    width: 22rem;
-    height: 22rem;
+   width: 21.58rem;
+  height: 21.58rem;
+  position: absolute;
+  left: 6rem;
+  top: 12rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -187,8 +191,7 @@ header{
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 3;
-    top: 12rem;
-    left: 6rem;
+   
     visibility: hidden;
      font-family: "Press Start 2P", system-ui;
 }
@@ -212,7 +215,7 @@ header{
   padding: 10px;
   text-align: center;
   cursor: pointer;
-  width: 1.9rem;
+  width: 1.85rem;
   display: flex;
   justify-content: center;
   align-items: center;
