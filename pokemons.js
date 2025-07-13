@@ -1,6 +1,7 @@
 let currentIndex = 0;
 let preloadedPokemons = [];
 let isFirstLoad = true;
+let isEaster = false;
 
 const leftArrow = document.getElementById("leftArrow");
 const rightArrow = document.getElementById("rightArrow");
@@ -77,7 +78,9 @@ function displayNotFound() {
   const visor = document.getElementById("visor");
   const pokemonImage = document.getElementById("pokemonImage");
 
-  visor.innerText = `#??? - Not Found`;
+  visor.innerText = isEaster ? 'EASTER EGG 🤣🤣🤣' : '#??? - Not Found';
+
+  
   pokemonImage.src = "./assets/yoshi.gif";
   pokemonImage.style.opacity = 1;
   pokemonImage.style.visibility = "visible";

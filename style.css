@@ -88,6 +88,21 @@ header{
   z-index: 1;
 }
 
+#easter{
+   width: 21.58rem;
+  height: 21.58rem;
+  position: absolute;
+  left: 0rem;
+  top: 0rem;
+  background-image: url();
+  background-size: cover;
+  background-position: center; /* posição inicial */
+ 
+  display: none;
+  pointer-events: none;
+  z-index: 8;
+}
+
 #tela.on {
   background-position: center; /* destino da animação */
   opacity: 1;
