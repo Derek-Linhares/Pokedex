@@ -2,14 +2,39 @@ let currentIndex = 0;
 let preloadedPokemons = [];
 let isFirstLoad = true;
 let isEaster = false;
+let statsVisible = true;
+let maleVoice = null;
 
 const leftArrow = document.getElementById("leftArrow");
 const rightArrow = document.getElementById("rightArrow");
 const upArrow = document.getElementById("upArrow");
 const downArrow = document.getElementById("downArrow");
 const statsDiv = document.getElementById("stats");
-
 const scrollStep = 40;
+
+function loadVoices() {
+  const voices = window.speechSynthesis.getVoices();
+  maleVoice = voices.find(v =>
+    v.lang.startsWith("en") &&
+    (v.name.includes("Daniel") || v.name.includes("Google US English") || v.name.includes("Male"))
+  );
+}
+
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+  loadVoices();
+  setTimeout(() => speechSynthesis.getVoices(), 100); 
+}
+
+function speakText(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    if (maleVoice) utterance.voice = maleVoice;
+    window.speechSynthesis.speak(utterance);
+  }
+}
 
 async function fetchPokemon(query) {
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
@@ -29,14 +54,14 @@ async function preloadInitial(centerId) {
     const promises = ids.map(id => fetchPokemon(id));
     preloadedPokemons = await Promise.all(promises);
     currentIndex = centerId - start;
-    displayPokemon(preloadedPokemons[currentIndex]);
+    displayPokemon(preloadedPokemons[currentIndex], true); 
   } catch (error) {
     console.error("Erro ao pré-carregar:", error);
     displayNotFound();
   }
 }
 
-function displayPokemon(pokemon) {
+function displayPokemon(pokemon, skipSpeak = false) {
   const visor = document.getElementById("visor");
   const pokemonImage = document.getElementById("pokemonImage");
 
@@ -71,7 +96,7 @@ function displayPokemon(pokemon) {
     pokemonImage.style.visibility = "visible";
   }
 
-  showStats(pokemon);
+  showStats(pokemon, skipSpeak);
 }
 
 function displayNotFound() {
@@ -80,7 +105,6 @@ function displayNotFound() {
 
   visor.innerText = isEaster ? 'EASTER EGG 🤣🤣🤣' : '#??? - Not Found';
 
-  
   pokemonImage.src = "./assets/yoshi.gif";
   pokemonImage.style.opacity = 1;
   pokemonImage.style.visibility = "visible";
@@ -98,6 +122,8 @@ function displayNotFound() {
   defenseEl.textContent = `Defense: ???`;
   typeEl.textContent = `Type: ???`;
   moveEl.textContent = `Main Attack: ???`;
+
+  
 }
 
 leftArrow.addEventListener("click", async () => {
@@ -144,7 +170,7 @@ rightArrow.addEventListener("click", async () => {
   }
 });
 
-async function showStats(pokemon) {
+async function showStats(pokemon, skipSpeak = false) {
   const nameEl = document.getElementById("stat-name");
   const attackEl = document.getElementById("stat-attack");
   const defenseEl = document.getElementById("stat-defense");
@@ -179,16 +205,19 @@ async function showStats(pokemon) {
       const moveData = await fetch(move.move.url).then(res => res.json());
       if (moveData.power !== null) {
         moveEl.textContent = `Main Attack: ${moveData.name}`;
-        break;
+        if (statsVisible && !skipSpeak) {
+          const speech = `${pokemon.name}. Attack ${attack}. Defense ${defense}. Type ${pokemon.types.map(t => t.type.name).join(" and ")}. Main Attack: ${moveData.name}.`;
+          speakText(speech);
+        }
+        return;
       }
     }
+    moveEl.textContent = `Main Attack: Not Found`;
   } catch (e) {
     moveEl.textContent = `Main Attack: Not Found`;
     console.error("Error finding main attack:", e);
   }
 }
-
-preloadInitial(1);
 
 upArrow.addEventListener("click", () => {
   statsDiv.scrollTop -= scrollStep;
@@ -197,3 +226,5 @@ upArrow.addEventListener("click", () => {
 downArrow.addEventListener("click", () => {
   statsDiv.scrollTop += scrollStep;
 });
+
+preloadInitial(1);

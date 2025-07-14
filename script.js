@@ -69,11 +69,17 @@ function turnOff() {
   tela.style.backgroundPosition = "left";
   visor.classList.remove("visible");
   telaOff.style.visibility = "visible";
-  console.log("desligou")
+  console.log("desligou");
+
   canOn = true;
-  stopAllSounds()
-   digitalKeyboard.style.visibility = "hidden";
-   canPlaySound = false;
+  stopAllSounds();
+  digitalKeyboard.style.visibility = "hidden";
+  canPlaySound = false;
+
+ 
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
 }
 
 function stopAllSounds() {
