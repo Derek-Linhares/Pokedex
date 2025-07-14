@@ -94,8 +94,8 @@ async function preloadInitial(centerId, skipSpeak = true) {
   } catch (error) {
     setTimeout(() => {
       console.error("Erro ao pré-carregar:", error);
-    displayNotFound();
-    }, 1800);
+    
+    }, 2300);
     
   }
 }
@@ -104,13 +104,20 @@ function displayPokemon(pokemon, skipSpeak = false) {
   const visor = document.getElementById("visor");
   const pokemonImage = document.getElementById("pokemonImage");
 
-  visor.innerText = "Loading data..."; 
+  if (isEaster) {
+    visor.innerText = "EASTER EGG 🤣🤣🤣";
+    
+    // Exibe imagem especial de easter egg se desejar
+    pokemonImage.src = "./assets/yoshi.gif";
+    pokemonImage.style.opacity = 1;
+    pokemonImage.style.visibility = "visible";
+    
+    return;
+  }
+
+  visor.innerText = "Loading data...";
 
   if (!pokemon || !pokemon.id || !pokemon.name) {
-     setTimeout(() => {
-      
-    displayNotFound();
-    }, 600);
     return;
   }
 
@@ -143,11 +150,13 @@ function displayPokemon(pokemon, skipSpeak = false) {
   showStats(pokemon, skipSpeak);
 }
 
+
+
 function displayNotFound() {
-  const visor = document.getElementById("visor");
+
   const pokemonImage = document.getElementById("pokemonImage");
 
-  visor.innerText = !isEaster ? '#??? - Not Found' : 'EASTER EGG 🤣🤣🤣';
+  
 
   pokemonImage.src = "./assets/yoshi.gif";
   pokemonImage.style.opacity = 1;

@@ -90,10 +90,10 @@ async function handleSearchInput(input) {
   window.skipSpeakOnce = false;
   await preloadInitial(poke.id, shouldSkipSpeak);
   } catch (error) {
-    setTimeout(() => {
-      console.error("Erro ao buscar Pokémon:", error);
-    displayNotFound();
-    }, 600);
+  setTimeout(() => {
+  console.error("Erro ao buscar Pokémon:", error);
+  if (!isEaster) displayNotFound();
+}, 600);
     
   }
 }
@@ -127,9 +127,10 @@ function mostrarEasterEgg(nome) {
     playAudio(audio);
   }
 
-  setTimeout(() => {
-    isEaster = false;
-    visor.innerText = `#??? - Not Found`;
-    easter.style.display = "none";
-  }, 3000);
+ setTimeout(() => {
+  isEaster = false;
+  easter.style.display = "none";
+  visor.innerText = "#??? - Not Found"
+  pokemonImage.src = "./assets/yoshi.gif";
+}, 3000);
 }
