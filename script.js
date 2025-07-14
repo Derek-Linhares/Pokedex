@@ -30,8 +30,8 @@ window.addEventListener("load", () => {
     localStorage.removeItem("autoTurnOn");
 
     setTimeout(() => {
-      handleSearchInput("1");
-      displayPokemon("1");
+      window.skipSpeakOnce = true;
+      handleSearchInput("1"); 
       visor.classList.add("visible");
       tela.classList.remove("on");
       void tela.offsetWidth;
@@ -45,10 +45,10 @@ window.addEventListener("load", () => {
      
       setTimeout(() => {
         canClick = true;
-        console.log("pode Clicar");
+       
       }, 5000);
        canPlaySound = true
-      console.log("ligou via autoTurnOn");
+      
     }, 50);
   }
 });
@@ -69,7 +69,7 @@ function turnOff() {
   tela.style.backgroundPosition = "left";
   visor.classList.remove("visible");
   telaOff.style.visibility = "visible";
-  console.log("desligou");
+ 
 
   canOn = true;
   stopAllSounds();
@@ -130,7 +130,7 @@ function visualizeLight() {
     const average = dataArray.reduce((a, b) => a + b, 1) / dataArray.length;
 
    
-    const intensity = Math.min(average / 100, 1); // 0 a 1
+    const intensity = Math.min(average / 100, 1); 
 
     
    const lightBlue = [75, 100, 255];

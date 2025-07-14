@@ -2,7 +2,7 @@ const output = document.getElementById("output");
 const keyboard = document.getElementById("keyboard");
 const digitalKeyboard = document.getElementById("digitalKeyboard");
 const search = document.getElementById("search");
-
+let isEaster = false;
 const audio1 = document.getElementById("audio1");
 const audio2 = document.getElementById("audio2");
 const audio3 = document.getElementById("audio3");
@@ -60,25 +60,38 @@ search.addEventListener("click", () => {
 
 function buscarPokemon(nome) {
   digitalKeyboard.style.visibility = "hidden";
-  console.log("buscando: " + nome);
 
-  mostrarEasterEgg(nome); // Chama o easter egg aqui
 
+  mostrarEasterEgg(nome);
   handleSearchInput(nome);
   displayPokemon(nome);
 }
 
-function handleSearchInput(input) {
+async function handleSearchInput(input) {
+  const visor = document.getElementById("visor");
+  const pokemonImage = document.getElementById("pokemonImage");
+
+  visor.innerText = "Loading data...";
+  pokemonImage.style.visibility = "hidden";
+  pokemonImage.src = ""; 
   let query = input.trim().toLowerCase();
- 
   if (!query) return;
 
-  if (!isNaN(query)) {
-    preloadInitial(Number(query));
-  } else {
-    fetchPokemon(query)
-      .then(poke => preloadInitial(poke.id))
-      .catch(err => console.log("Pokemon Not Found"));
+  try {
+    let poke;
+
+    if (!isNaN(query)) {
+      poke = await fetchPokemon(Number(query));
+    } else {
+      poke = await fetchPokemon(query);
+    }
+
+   const shouldSkipSpeak = window.skipSpeakOnce === true;
+  window.skipSpeakOnce = false;
+  await preloadInitial(poke.id, shouldSkipSpeak);
+  } catch (error) {
+    console.error("Erro ao buscar Pokémon:", error);
+    displayNotFound();
   }
 }
 
@@ -86,24 +99,26 @@ function mostrarEasterEgg(nome) {
   const nomeLower = nome.trim().toLowerCase();
   let imagem = "";
   let audio = null;
-  isEaster = true
 
   if (nomeLower === "ramon") {
     imagem = "url('./assets/ramon.gif')";
     audio = audio1;
+    isEaster = true;
   } else if (nomeLower === "cj") {
     imagem = "url('./assets/cj.gif')";
     audio = audio2;
+    isEaster = true;
   } else if (nomeLower === "nemesis") {
     imagem = "url('./assets/nemesis.gif')";
     audio = audio3;
+    isEaster = true;
   } else {
-    return; // Não é um easter egg
+    isEaster = false;
+    return;
   }
 
   easter.style.backgroundImage = imagem;
   easter.style.display = "block";
-  visor.innerText = 'EASTER EGG 🤣🤣';
 
   if (audio) {
     playAudio(audio);

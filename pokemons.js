@@ -1,7 +1,7 @@
 let currentIndex = 0;
 let preloadedPokemons = [];
 let isFirstLoad = true;
-let isEaster = false;
+
 let statsVisible = true;
 let maleVoice = null;
 
@@ -42,7 +42,14 @@ async function fetchPokemon(query) {
   return await data.json();
 }
 
-async function preloadInitial(centerId) {
+async function preloadInitial(centerId, skipSpeak = true) {
+  const visor = document.getElementById("visor");
+  const pokemonImage = document.getElementById("pokemonImage");
+
+  visor.innerText = "Loading data...";
+  pokemonImage.style.visibility = "hidden";
+  pokemonImage.src = "";
+
   const start = Math.max(1, centerId - 2);
   const ids = [];
 
@@ -54,7 +61,10 @@ async function preloadInitial(centerId) {
     const promises = ids.map(id => fetchPokemon(id));
     preloadedPokemons = await Promise.all(promises);
     currentIndex = centerId - start;
-    displayPokemon(preloadedPokemons[currentIndex], true); 
+
+    setTimeout(() => {
+      displayPokemon(preloadedPokemons[currentIndex], skipSpeak);
+    }, 500);
   } catch (error) {
     console.error("Erro ao pré-carregar:", error);
     displayNotFound();
@@ -64,6 +74,8 @@ async function preloadInitial(centerId) {
 function displayPokemon(pokemon, skipSpeak = false) {
   const visor = document.getElementById("visor");
   const pokemonImage = document.getElementById("pokemonImage");
+
+  visor.innerText = "Loading data..."; 
 
   if (!pokemon || !pokemon.id || !pokemon.name) {
     displayNotFound();
@@ -103,7 +115,7 @@ function displayNotFound() {
   const visor = document.getElementById("visor");
   const pokemonImage = document.getElementById("pokemonImage");
 
-  visor.innerText = isEaster ? 'EASTER EGG 🤣🤣🤣' : '#??? - Not Found';
+  visor.innerText = !isEaster ? '#??? - Not Found' : 'EASTER EGG 🤣🤣🤣';
 
   pokemonImage.src = "./assets/yoshi.gif";
   pokemonImage.style.opacity = 1;
@@ -121,9 +133,7 @@ function displayNotFound() {
   attackEl.textContent = `Attack: ???`;
   defenseEl.textContent = `Defense: ???`;
   typeEl.textContent = `Type: ???`;
-  moveEl.textContent = `Main Attack: ???`;
-
-  
+  moveEl.textContent = `Main Attack: ???`; 
 }
 
 leftArrow.addEventListener("click", async () => {

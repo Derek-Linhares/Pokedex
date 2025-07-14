@@ -81,7 +81,7 @@ header{
   background-image: url(./assets/fundo.jpg);
   background-size: cover;
 
-  background-position: left; /* posição inicial */
+  background-position: left; 
   transition: background-position 4s ease-in-out, opacity 0.5s ease;
   opacity: 0;
   pointer-events: none;
@@ -96,7 +96,7 @@ header{
   top: 0rem;
   background-image: url();
   background-size: cover;
-  background-position: center; /* posição inicial */
+  background-position: center;
  
   display: none;
   pointer-events: none;
@@ -104,7 +104,7 @@ header{
 }
 
 #tela.on {
-  background-position: center; /* destino da animação */
+  background-position: center; 
   opacity: 1;
   pointer-events: auto;
   z-index: 1;
