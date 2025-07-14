@@ -7,6 +7,26 @@ const audio1 = document.getElementById("audio1");
 const audio2 = document.getElementById("audio2");
 const audio3 = document.getElementById("audio3");
 const easter = document.getElementById("easter");
+const easterEggs = {
+  ramon: {
+    gif: "./assets/ramon.gif",
+    audio: audio1
+  },
+  cj: {
+    gif: "./assets/cj.gif",
+    audio: audio2
+  },
+  nemesis: {
+    gif: "./assets/nemesis.gif",
+    audio: audio3
+  }
+};
+
+// Pré-carrega os GIFs
+Object.values(easterEggs).forEach(entry => {
+  const img = new Image();
+  img.src = entry.gif;
+});
 
 const keys = [
   ..."1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -102,39 +122,32 @@ async function handleSearchInput(input) {
 
 function mostrarEasterEgg(nome) {
   const nomeLower = nome.trim().toLowerCase();
-  let imagem = "";
-  let audio = null;
+  const egg = easterEggs[nomeLower];
 
-  if (nomeLower === "ramon") {
-    imagem = "url('./assets/ramon.gif')";
-    audio = audio1;
-    isEaster = true;
-  } else if (nomeLower === "cj") {
-    imagem = "url('./assets/cj.gif')";
-    audio = audio2;
-    isEaster = true;
-  } else if (nomeLower === "nemesis") {
-    imagem = "url('./assets/nemesis.gif')";
-    audio = audio3;
-    isEaster = true;
-  } else {
+  if (!egg) {
     isEaster = false;
     return;
   }
 
-  easter.style.backgroundImage = imagem;
+  isEaster = true;
+
+  // Mostra o easter egg
+  easter.style.backgroundImage = `url('${egg.gif}')`;
   easter.style.display = "block";
 
-  if (audio) {
-    playAudio(audio);
+  if (egg.audio) {
+    playAudio(egg.audio);
   }
 
- setTimeout(() => {
-  isEaster = false;
-  easter.style.display = "none";
-  visor.innerText = "#??? - Not Found"
-  pokemonImage.style.opacity = 1;
-  pokemonImage.style.visibility = "visible";
-  pokemonImage.src = "./assets/yoshi.gif";
-}, 3000);
+  // Após 3 segundos, mostra o Yoshi
+  setTimeout(() => {
+    isEaster = false;
+    easter.style.display = "none";
+
+    visor.innerText = "#??? - Not Found";
+
+    pokemonImage.src = "./assets/yoshi.gif";
+    pokemonImage.style.opacity = 1;
+    pokemonImage.style.visibility = "visible";
+  }, 3000);
 }

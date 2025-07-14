@@ -112,7 +112,7 @@ function displayPokemon(pokemon, skipSpeak = false) {
     
     // Exibe imagem especial de easter egg se desejar
     pokemonImage.src = "";
-    pokemonImage.style.opacity = 0;
+    pokemonImage.style.opacity = 1;
     pokemonImage.style.visibility = "hidden";
     
     return;
@@ -145,7 +145,7 @@ function displayPokemon(pokemon, skipSpeak = false) {
       pokemonImage.style.opacity = 1;
       pokemonImage.style.visibility = "visible";
       isFirstLoad = false;
-    }, 3500);
+    }, 3000);
   } else {
     pokemonImage.src = spriteToUse;
     pokemonImage.style.opacity = 1;
