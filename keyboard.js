@@ -71,7 +71,9 @@ async function handleSearchInput(input) {
   const visor = document.getElementById("visor");
   const pokemonImage = document.getElementById("pokemonImage");
 
+  if (!isFirstLoad) {
   visor.innerText = "Loading data...";
+}
   pokemonImage.style.visibility = "hidden";
   pokemonImage.src = ""; 
   let query = input.trim().toLowerCase();

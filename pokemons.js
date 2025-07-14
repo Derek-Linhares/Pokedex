@@ -72,7 +72,9 @@ async function preloadInitial(centerId, skipSpeak = true) {
   const visor = document.getElementById("visor");
   const pokemonImage = document.getElementById("pokemonImage");
 
+  if (!isFirstLoad) {
   visor.innerText = "Loading data...";
+}
   pokemonImage.style.visibility = "hidden";
   pokemonImage.src = "";
 
@@ -115,7 +117,9 @@ function displayPokemon(pokemon, skipSpeak = false) {
     return;
   }
 
+  if (!isFirstLoad) {
   visor.innerText = "Loading data...";
+}
 
   if (!pokemon || !pokemon.id || !pokemon.name) {
     return;
