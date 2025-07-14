@@ -95,7 +95,7 @@ async function preloadInitial(centerId, skipSpeak = true) {
     setTimeout(() => {
       console.error("Erro ao pré-carregar:", error);
     displayNotFound();
-    }, 1000);
+    }, 500);
     
   }
 }
@@ -110,7 +110,7 @@ function displayPokemon(pokemon, skipSpeak = false) {
      setTimeout(() => {
       
     displayNotFound();
-    }, 1000);
+    }, 500);
     return;
   }
 

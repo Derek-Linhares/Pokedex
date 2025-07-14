@@ -93,7 +93,7 @@ async function handleSearchInput(input) {
     setTimeout(() => {
       console.error("Erro ao buscar Pokémon:", error);
     displayNotFound();
-    }, 1000);
+    }, 500);
     
   }
 }
