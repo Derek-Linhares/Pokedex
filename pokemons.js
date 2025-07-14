@@ -90,10 +90,13 @@ async function preloadInitial(centerId, skipSpeak = true) {
 
     setTimeout(() => {
       displayPokemon(preloadedPokemons[currentIndex], skipSpeak);
-    }, 500);
+    }, 1000);
   } catch (error) {
-    console.error("Erro ao pré-carregar:", error);
+    setTimeout(() => {
+      console.error("Erro ao pré-carregar:", error);
     displayNotFound();
+    }, 1000);
+    
   }
 }
 
@@ -104,7 +107,10 @@ function displayPokemon(pokemon, skipSpeak = false) {
   visor.innerText = "Loading data..."; 
 
   if (!pokemon || !pokemon.id || !pokemon.name) {
+     setTimeout(() => {
+      
     displayNotFound();
+    }, 1000);
     return;
   }
 
