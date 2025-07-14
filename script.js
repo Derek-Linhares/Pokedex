@@ -69,7 +69,7 @@ function turnOff() {
   tela.style.backgroundPosition = "left";
   visor.classList.remove("visible");
   telaOff.style.visibility = "visible";
-
+  canClick = false;
   canPlayMusic = false;
   canPlaySound = false;
   canTalk = false;
@@ -206,11 +206,13 @@ select.addEventListener("click", () => {
 });
 
 toggleSound.addEventListener("click", () => {
+   if(canClick){
   canPlaySound = !canPlaySound;
   toggleSound.style.backgroundColor = canPlaySound ? "red" : "black";  
-})
+}})
 
 toggleTalk.addEventListener("click", () => {
+  if(canClick){
   canTalk = !canTalk;
   toggleTalk.style.backgroundColor = canTalk ? "yellow" : "black";
 
@@ -219,10 +221,11 @@ toggleTalk.addEventListener("click", () => {
 
     
     stopSpeakingLightEffect();
-  }
+  }}
 });
 
 toggleMusic.addEventListener("click", () => {
+   if(canClick){
   canPlayMusic = !canPlayMusic;
   toggleMusic.style.backgroundColor = canPlayMusic ? "green" : "black";
 
@@ -241,4 +244,5 @@ toggleMusic.addEventListener("click", () => {
     const light = document.getElementById("pokedex-light");
     light.style.backgroundColor = "black";
   }
+}
 });
