@@ -110,7 +110,7 @@ function displayPokemon(pokemon, skipSpeak = false) {
      setTimeout(() => {
       
     displayNotFound();
-    }, 500);
+    }, 600);
     return;
   }
 
