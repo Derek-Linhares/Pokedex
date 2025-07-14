@@ -95,7 +95,7 @@ async function preloadInitial(centerId, skipSpeak = true) {
     setTimeout(() => {
       console.error("Erro ao pré-carregar:", error);
     displayNotFound();
-    }, 500);
+    }, 1800);
     
   }
 }
