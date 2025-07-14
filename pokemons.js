@@ -166,6 +166,7 @@ function displayNotFound() {
   pokemonImage.src = "./assets/yoshi.gif";
   pokemonImage.style.opacity = 1;
   pokemonImage.style.visibility = "visible";
+  visor.innerText = "#??? - Not Found";
 
   const nameEl = document.getElementById("stat-name");
   const attackEl = document.getElementById("stat-attack");
