@@ -133,6 +133,8 @@ function mostrarEasterEgg(nome) {
   isEaster = false;
   easter.style.display = "none";
   visor.innerText = "#??? - Not Found"
+  pokemonImage.style.opacity = 1;
+  pokemonImage.style.visibility = "visible";
   pokemonImage.src = "./assets/yoshi.gif";
 }, 3000);
 }

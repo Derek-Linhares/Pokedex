@@ -108,11 +108,12 @@ function displayPokemon(pokemon, skipSpeak = false) {
 
   if (isEaster) {
     visor.innerText = "EASTER EGG 🤣🤣🤣";
+
     
     // Exibe imagem especial de easter egg se desejar
-    pokemonImage.src = "./assets/yoshi.gif";
-    pokemonImage.style.opacity = 1;
-    pokemonImage.style.visibility = "visible";
+    pokemonImage.src = "";
+    pokemonImage.style.opacity = 0;
+    pokemonImage.style.visibility = "hidden";
     
     return;
   }
