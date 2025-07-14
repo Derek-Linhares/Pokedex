@@ -172,7 +172,42 @@ header{
 }
 
 
-
+#toggleMusic{
+  width: 1.8rem;
+  height: 1.8rem;
+  background-color: rgb(0, 0, 0);
+  border-radius: 100%;
+  border: 0.2rem solid black;
+  position: absolute;
+  top: 1rem;
+  left: 14.2rem;
+  cursor: pointer;
+  transition: ease-in-out .5s;
+}
+#toggleTalk{
+  width: 1.8rem;
+  height: 1.8rem;
+  background-color: rgb(0, 0, 0);
+  border-radius: 100%;
+  border: 0.2rem solid black;
+  position: absolute;
+  top: 1rem;
+  left: 11.7rem;
+  cursor: pointer;
+  transition: ease-in-out .5s;
+}
+#toggleSound{
+  width: 1.8rem;
+  height: 1.8rem;
+  background-color: rgb(0, 0, 0);
+  border-radius: 100%;
+  border: 0.2rem solid black;
+  position: absolute;
+  top: 1rem;
+  left: 9.2rem;
+  cursor: pointer;
+  transition: ease-in-out .5s;
+}
 
 
 #screen {

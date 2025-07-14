@@ -4,6 +4,7 @@ let isFirstLoad = true;
 
 let statsVisible = true;
 let maleVoice = null;
+let narrationVolume = 0.4;
 
 const leftArrow = document.getElementById("leftArrow");
 const rightArrow = document.getElementById("rightArrow");
@@ -27,14 +28,39 @@ if ('speechSynthesis' in window) {
 }
 
 function speakText(text) {
+  if(canTalk){
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'en-US';
+    utterance.volume = narrationVolume; // <- controle de volume
     if (maleVoice) utterance.voice = maleVoice;
-    window.speechSynthesis.speak(utterance);
+
+    // Acende a luz azul
+    utterance.onstart = () => {
+      const light = document.getElementById("pokedex-light");
+      light.style.backgroundColor = "rgb(75, 100, 255)";
+    };
+
+    // Apaga a luz azul
+    utterance.onend = () => {
+      const light = document.getElementById("pokedex-light");
+      light.style.backgroundColor = "rgb(0, 0, 0)";
+    };
+
+   utterance.onstart = () => {
+  startSpeakingLightEffect();
+};
+
+utterance.onend = () => {
+  stopSpeakingLightEffect();
+};
+
+window.speechSynthesis.speak(utterance);
   }
-}
+}else{
+  return
+}}
 
 async function fetchPokemon(query) {
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);

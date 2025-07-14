@@ -9,6 +9,11 @@ let select = document.getElementById("select");
 let stats = document.getElementById("stats");
 let nextAudio = document.getElementById("nextAudio");
 let canPlaySound = false;
+let canPlayMusic = false;
+let canTalk = false;
+let toggleSound = document.getElementById("toggleSound")
+let toggleMusic = document.getElementById("toggleMusic")
+let toggleTalk = document.getElementById("toggleTalk")
 
 let typeAudio = document.getElementById("typeAudio")
 let selectAudio = document.getElementById("selectAudio")
@@ -23,8 +28,6 @@ analyser.fftSize = 256;
 let source = null;
 let dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-
-
 window.addEventListener("load", () => {
   if (localStorage.getItem("autoTurnOn") === "true") {
     localStorage.removeItem("autoTurnOn");
@@ -38,23 +41,21 @@ window.addEventListener("load", () => {
       tela.style.backgroundPosition = "center";
       tela.classList.add("on");
       telaOff.style.visibility = "hidden";
+      canPlayMusic = true;
+      canPlaySound = true;
+      canTalk = true;
+      toggleMusic.style.backgroundColor = "green";
+      toggleSound.style.backgroundColor = "red";
+      toggleTalk.style.backgroundColor = "yellow";
       playSound(theme);
       canOn = false;
-     
 
-     
       setTimeout(() => {
         canClick = true;
-       
       }, 5000);
-       canPlaySound = true
-      
     }, 50);
   }
 });
-
-
-
 
 function turnOn() {
   if (canOn) {
@@ -63,20 +64,23 @@ function turnOn() {
   }
 }
 
-
 function turnOff() {
   tela.classList.remove("on");
   tela.style.backgroundPosition = "left";
   visor.classList.remove("visible");
   telaOff.style.visibility = "visible";
- 
 
+  canPlayMusic = false;
+  canPlaySound = false;
+  canTalk = false;
   canOn = true;
   stopAllSounds();
   digitalKeyboard.style.visibility = "hidden";
-  canPlaySound = false;
 
- 
+  toggleMusic.style.backgroundColor = "black";
+  toggleSound.style.backgroundColor = "black";
+  toggleTalk.style.backgroundColor = "black";
+
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
   }
@@ -92,15 +96,15 @@ function stopAllSounds() {
 
 function playAudio(audio){
   if(canPlaySound){
-  audio.currentTime = 0;
-  audio.play()}
+    audio.currentTime = 0;
+    audio.play()
+  }
 }
 
 async function playSound(audio) {
   if (audioContext.state === "suspended") {
     await audioContext.resume();
   }
-
 
   if (!source || source.mediaElement !== audio) {
     source = audioContext.createMediaElementSource(audio);
@@ -116,40 +120,81 @@ async function playSound(audio) {
     console.error("Erro ao tocar o áudio:", err);
   }
 
-  visualizeLight();
+  if (!isSpeaking) {
+    updateLightForAudio();
+  }
 }
 
+let speakingLightInterval = null;
+let isSpeaking = false;
+let animationFrameId = null;
 
-function visualizeLight() {
+function updateLightForAudio() {
+  if (isSpeaking) return; // não atualiza luz de música enquanto fala
+
+  analyser.getByteFrequencyData(dataArray);
+
+  const average = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
+
+  const intensity = Math.min(average / 100, 1);
+
+  const lightBlue = [75, 100, 255];
+  const darkBlue = [0, 0, 0];
+
+  const r = Math.floor(lerp(darkBlue[0], lightBlue[0], intensity));
+  const g = Math.floor(lerp(darkBlue[1], lightBlue[1], intensity));
+  const b = Math.floor(lerp(darkBlue[2], lightBlue[2], intensity));
+
   const light = document.getElementById("pokedex-light");
+  light.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 
-  function update() {
-    analyser.getByteFrequencyData(dataArray);
+  animationFrameId = requestAnimationFrame(updateLightForAudio);
+}
 
-   
-    const average = dataArray.reduce((a, b) => a + b, 1) / dataArray.length;
-
-   
-    const intensity = Math.min(average / 100, 1); 
-
-    
-   const lightBlue = [75, 100, 255];
-const darkBlue = [0, 0, 0];      
-
+function startSpeakingLightEffect() {
+  isSpeaking = true;
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
+  speakingLightInterval = setInterval(() => {
+    const intensity = 0.4 + Math.random() * 0.6; // valor entre 0.4 e 1.0
+    const lightBlue = [75, 100, 255];
+    const darkBlue = [0, 0, 0];
     const r = Math.floor(lerp(darkBlue[0], lightBlue[0], intensity));
     const g = Math.floor(lerp(darkBlue[1], lightBlue[1], intensity));
     const b = Math.floor(lerp(darkBlue[2], lightBlue[2], intensity));
-
+    const light = document.getElementById("pokedex-light");
     light.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+  }, 100);
+}
 
-    requestAnimationFrame(update);
-  }
-
-  update();
+function stopSpeakingLightEffect() {
+  isSpeaking = false;
+  clearInterval(speakingLightInterval);
+  speakingLightInterval = null;
+  updateLightForAudio();
 }
 
 function lerp(a, b, t) {
   return a + (b - a) * t;
+}
+
+function speak(text) {
+  if (!canTalk) return;
+
+  if ('speechSynthesis' in window) {
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    utterance.onstart = () => {
+      startSpeakingLightEffect();
+    };
+    utterance.onend = () => {
+      stopSpeakingLightEffect();
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }
 }
 
 select.addEventListener("click", () => {
@@ -157,6 +202,43 @@ select.addEventListener("click", () => {
   if (canClick && !canOn) {
     stats.style.visibility = 
       stats.style.visibility === "hidden" ? "visible" : "hidden";
-        
+  }
+});
+
+toggleSound.addEventListener("click", () => {
+  canPlaySound = !canPlaySound;
+  toggleSound.style.backgroundColor = canPlaySound ? "red" : "black";  
+})
+
+toggleTalk.addEventListener("click", () => {
+  canTalk = !canTalk;
+  toggleTalk.style.backgroundColor = canTalk ? "yellow" : "black";
+
+  if (!canTalk && 'speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+
+    
+    stopSpeakingLightEffect();
+  }
+});
+
+toggleMusic.addEventListener("click", () => {
+  canPlayMusic = !canPlayMusic;
+  toggleMusic.style.backgroundColor = canPlayMusic ? "green" : "black";
+
+  if (canPlayMusic) {
+    theme.loop = true; 
+    theme.play();
+    updateLightForAudio();
+  } else {
+    theme.pause();
+    theme.currentTime = 0; 
+    if(animationFrameId){
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+    // resetar luz quando a música parar
+    const light = document.getElementById("pokedex-light");
+    light.style.backgroundColor = "black";
   }
 });
