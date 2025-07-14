@@ -198,10 +198,13 @@ function speak(text) {
 }
 
 select.addEventListener("click", () => {
-  if(canPlaySound){playAudio(selectAudio);}
+  if (canPlaySound) {
+    playAudio(selectAudio);
+  }
   if (canClick && !canOn) {
+    const currentVisibility = getComputedStyle(stats).visibility;
     stats.style.visibility = 
-      stats.style.visibility === "hidden" ? "visible" : "hidden";
+      currentVisibility === "hidden" ? "visible" : "hidden";
   }
 });
 
