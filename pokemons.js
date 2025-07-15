@@ -13,23 +13,36 @@ const downArrow = document.getElementById("downArrow");
 const statsDiv = document.getElementById("stats");
 const scrollStep = 40;
 
+const backgroundImages = {
+  bug: './assets/backgrounds/bug.png',
+  dark:  './assets/backgrounds/dark.png',
+  dragon: './assets/backgrounds/dragon.png',
+  electric: './assets/backgrounds/electric.png',
+  fairy: './assets/backgrounds/fairy.png',
+  fighting: './assets/backgrounds/fighting.png',
+  fire: './assets/backgrounds/fire.png',
+  flying: './assets/backgrounds/flying.png',
+  ghost:  './assets/backgrounds/ghost.png',
+  grass: './assets/backgrounds/grass.jpg',
+  ground: './assets/backgrounds/ground.png',
+  ice: './assets/backgrounds/ice.png',
+  normal: './assets/backgrounds/normal.png',
+  poison: './assets/backgrounds/poison.png',
+  psychic: './assets/backgrounds/psychic.png',
+  rock: './assets/backgrounds/rock.png',
+  /*shadow:  './assets/backgrounds/shadow.png',
+  steel:  './assets/backgrounds/steel.png',
+  unknown:  './assets/backgrounds/unknown.png',*/
+  water: './assets/backgrounds/water.png',
+  
+};
 
-const backgroundImages = {};
-const backgroundExtensions = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
-const typesToLoad = ['grass', 'fire', 'water', 'electric', 'fairy', 'poison', 'rock', 'dark', 'bug', 'ground', 'flying','normal', 'fighting', 'psychic','ice','dragon'];
 
 function preloadBackgrounds() {
-  typesToLoad.forEach(type => {
-    for (const ext of backgroundExtensions) {
-      const path = `./assets/backgrounds/${type}.${ext}`;
-      const img = new Image();
-      img.onload = () => {
-        backgroundImages[type] = path;
-      };
-      img.onerror = () => {};
-      img.src = path;
-    }
-  });
+  for (const type in backgroundImages) {
+    const img = new Image();
+    img.src = backgroundImages[type];
+  }
 }
 preloadBackgrounds();
 
@@ -63,9 +76,17 @@ function speakText(text) {
 }
 
 async function fetchPokemon(query) {
-  const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
-  if (!data.ok) throw new Error("Pokémon not found");
-  return await data.json();
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
+    
+  
+    if (!response.ok) return null;
+
+    return await response.json();
+  } catch {
+    
+    return null;
+  }
 }
 
 async function preloadInitial(centerId, skipSpeak = true) {
@@ -154,7 +175,7 @@ function displayPokemon(pokemon, skipSpeak = false) {
 function displayNotFound() {
   const pokemonImage = document.getElementById("pokemonImage");
   tela.style.backgroundImage = "url(./assets/fundo.jpg)"
-  pokemonImage.src = "./assets/yoshi.gif";
+  pokemonImage.src = yoshiImage.src;
   pokemonImage.style.opacity = 1;
   pokemonImage.style.visibility = "visible";
   visor.innerText = "#??? - Not Found";
@@ -166,7 +187,7 @@ function displayNotFound() {
   const moveEl = document.getElementById("stat-move");
   const imageEl = document.getElementById("stat-image");
 
-  imageEl.src = "./assets/yoshi.gif";
+  imageEl.src =  yoshiImage.src;;
   nameEl.textContent = `Name: ???`;
   attackEl.textContent = `Attack: ???`;
   defenseEl.textContent = `Defense: ???`;
@@ -189,30 +210,34 @@ leftArrow.addEventListener("click", async () => {
           preloadedPokemons.unshift(newPokemon);
           displayPokemon(newPokemon);
         } catch (e) {
-          console.error("Erro ao carregar anterior", e);
+          
           displayNotFound();
         }
       }
     }
   }
 });
-
 rightArrow.addEventListener("click", async () => {
   if (canPlaySound) playAudio(nextAudio);
   if (!canOn && canClick) {
+      if (preloadedPokemons[currentIndex].id === 1025) {
+      return;
+    }
+
     if (currentIndex < preloadedPokemons.length - 1) {
       currentIndex++;
       displayPokemon(preloadedPokemons[currentIndex]);
     } else {
       const newId = preloadedPokemons[preloadedPokemons.length - 1].id + 1;
-      try {
-        const newPokemon = await fetchPokemon(newId);
-        preloadedPokemons.shift();
-        preloadedPokemons.push(newPokemon);
-        displayPokemon(newPokemon);
-      } catch (e) {
-        console.error("Erro ao carregar próximo", e);
-        displayNotFound();
+      if (newId <= 1025) {
+        try {
+          const newPokemon = await fetchPokemon(newId);
+          preloadedPokemons.shift();
+          preloadedPokemons.push(newPokemon);
+          displayPokemon(newPokemon);
+        } catch (e) {
+          displayNotFound();
+        }
       }
     }
   }
@@ -233,7 +258,7 @@ async function showStats(pokemon, skipSpeak = false) {
     dark: "🌑", fairy: "🧚‍♀️", unknown: "❓", shadow: "👤",
   };
 
-  const staticImage = pokemon?.sprites?.front_default || "./assets/yoshi.gif";
+  const staticImage = pokemon?.sprites?.front_default || yoshiImage.src;
   imageEl.src = staticImage;
   nameEl.textContent = `Name: ${pokemon.name}`;
 

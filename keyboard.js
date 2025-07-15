@@ -21,6 +21,8 @@ const easterEggs = {
     audio: audio3
   }
 };
+const yoshiImage = new Image();
+yoshiImage.src = "./assets/yoshi.gif";
 
 
 Object.values(easterEggs).forEach(entry => {
@@ -113,7 +115,7 @@ async function handleSearchInput(input) {
   await preloadInitial(poke.id, shouldSkipSpeak);
   } catch (error) {
   setTimeout(() => {
-  console.error("Erro ao buscar Pokémon:", error);
+ 
   if (!isEaster) displayNotFound();
 }, 600);
     
@@ -124,6 +126,10 @@ function mostrarEasterEgg(nome) {
   const nomeLower = nome.trim().toLowerCase();
   const egg = easterEggs[nomeLower];
   tela.style.backgroundImage = "url(./assets/fundo.jpg)"
+  stopSpeakingLightEffect();
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
   if (!egg) {
     isEaster = false;
     return;
@@ -146,7 +152,7 @@ function mostrarEasterEgg(nome) {
 
     visor.innerText = "#??? - Not Found";
 
-    pokemonImage.src = "./assets/yoshi.gif";
+    pokemonImage.src = yoshiImage.src;
     pokemonImage.style.opacity = 1;
     pokemonImage.style.visibility = "visible";
   }, 3000);
