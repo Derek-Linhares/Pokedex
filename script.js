@@ -1,3 +1,6 @@
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.cancel();
+}
 let caindo = document.getElementById("caindo")
 let tela = document.getElementById("tela")
 let telaOff = document.getElementById("telaOff")

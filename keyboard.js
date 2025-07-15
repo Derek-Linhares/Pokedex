@@ -51,19 +51,20 @@ keys.forEach(k => {
     btn.classList.add("wide");
   }
 
-  btn.addEventListener("click", () => {
-    if (canPlaySound) playAudio(typeAudio);
+btn.addEventListener("click", () => {
+  if (canPlaySound) playAudio(typeAudio);
 
-    if (k === "←") {
-      output.textContent = output.textContent.slice(0, -1);
-    } else if (k === "ESP") {
-      output.textContent += " ";
-    } else if (k === "OK") {
-      buscarPokemon(output.textContent);
-    } else {
-      output.textContent += k;
-    }
-  });
+  if (k === "←") {
+    output.textContent = output.textContent.slice(0, -1);
+  } else if (k === "ESP") {
+    output.textContent += " ";
+  } else if (k === "OK") {
+    const query = output.textContent.trim();
+    buscarPokemon(query === "" ? "1" : query);
+  } else {
+    output.textContent += k;
+  }
+});
 
   keyboard.appendChild(btn);
 });
