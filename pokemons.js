@@ -153,7 +153,7 @@ function displayPokemon(pokemon, skipSpeak = false) {
 
 function displayNotFound() {
   const pokemonImage = document.getElementById("pokemonImage");
-
+  tela.style.backgroundImage = "url(./assets/fundo.jpg)"
   pokemonImage.src = "./assets/yoshi.gif";
   pokemonImage.style.opacity = 1;
   pokemonImage.style.visibility = "visible";

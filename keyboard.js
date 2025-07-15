@@ -123,7 +123,7 @@ async function handleSearchInput(input) {
 function mostrarEasterEgg(nome) {
   const nomeLower = nome.trim().toLowerCase();
   const egg = easterEggs[nomeLower];
-
+  tela.style.backgroundImage = "url(./assets/fundo.jpg)"
   if (!egg) {
     isEaster = false;
     return;
