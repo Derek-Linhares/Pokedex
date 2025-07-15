@@ -1,6 +1,3 @@
-//COLOCAR AS FOTOS DE FUNDO DE CADA POKEMON BASEADO NO TIPO DELE
-
-
 let caindo = document.getElementById("caindo")
 let tela = document.getElementById("tela")
 let telaOff = document.getElementById("telaOff")
@@ -145,7 +142,7 @@ let isSpeaking = false;
 let animationFrameId = null;
 
 function updateLightForAudio() {
-  if (isSpeaking) return; // não atualiza luz de música enquanto fala
+  if (isSpeaking) return;  
 
   analyser.getByteFrequencyData(dataArray);
 
@@ -173,7 +170,7 @@ function startSpeakingLightEffect() {
     animationFrameId = null;
   }
   speakingLightInterval = setInterval(() => {
-    const intensity = 0.4 + Math.random() * 0.6; // valor entre 0.4 e 1.0
+    const intensity = 0.4 + Math.random() * 0.6;
     const lightBlue = [75, 100, 255];
     const darkBlue = [0, 0, 0];
     const r = Math.floor(lerp(darkBlue[0], lightBlue[0], intensity));
@@ -259,7 +256,7 @@ toggleMusic.addEventListener("click", () => {
       animationFrameId = null;
       
     }
-    // resetar luz quando a música parar
+  
     const light = document.getElementById("pokedex-light");
     light.style.backgroundColor = "black";
   }

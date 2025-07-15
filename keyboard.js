@@ -22,7 +22,7 @@ const easterEggs = {
   }
 };
 
-// Pré-carrega os GIFs
+
 Object.values(easterEggs).forEach(entry => {
   const img = new Image();
   img.src = entry.gif;
@@ -131,7 +131,7 @@ function mostrarEasterEgg(nome) {
 
   isEaster = true;
 
-  // Mostra o easter egg
+  
   easter.style.backgroundImage = `url('${egg.gif}')`;
   easter.style.display = "block";
 
@@ -139,7 +139,7 @@ function mostrarEasterEgg(nome) {
     playAudio(egg.audio);
   }
 
-  // Após 3 segundos, mostra o Yoshi
+ 
   setTimeout(() => {
     isEaster = false;
     easter.style.display = "none";

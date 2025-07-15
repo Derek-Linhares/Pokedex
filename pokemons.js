@@ -13,7 +13,7 @@ const downArrow = document.getElementById("downArrow");
 const statsDiv = document.getElementById("stats");
 const scrollStep = 40;
 
-// PRELOAD BACKGROUNDS
+
 const backgroundImages = {};
 const backgroundExtensions = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
 const typesToLoad = ['grass', 'fire', 'water', 'electric', 'fairy', 'poison', 'rock', 'dark', 'bug', 'ground', 'flying','normal', 'fighting', 'psychic','ice','dragon'];
@@ -128,7 +128,7 @@ function displayPokemon(pokemon, skipSpeak = false) {
   pokemonImage.style.opacity = 0;
   pokemonImage.style.visibility = "hidden";
 
-  // Aplica o fundo de acordo com o tipo principal, ou padrão "grass"
+ 
   const mainType = pokemon.types?.[0]?.type?.name;
   let backgroundToUse = backgroundImages[mainType] || backgroundImages["grass"];
   if (backgroundToUse) {
