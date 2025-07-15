@@ -13,6 +13,26 @@ const downArrow = document.getElementById("downArrow");
 const statsDiv = document.getElementById("stats");
 const scrollStep = 40;
 
+// PRELOAD BACKGROUNDS
+const backgroundImages = {};
+const backgroundExtensions = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
+const typesToLoad = ['grass', 'fire', 'water', 'electric', 'fairy', 'poison', 'rock', 'dark', 'bug', 'ground', 'flying','normal', 'fighting', 'psychic','ice','dragon'];
+
+function preloadBackgrounds() {
+  typesToLoad.forEach(type => {
+    for (const ext of backgroundExtensions) {
+      const path = `./assets/backgrounds/${type}.${ext}`;
+      const img = new Image();
+      img.onload = () => {
+        backgroundImages[type] = path;
+      };
+      img.onerror = () => {};
+      img.src = path;
+    }
+  });
+}
+preloadBackgrounds();
+
 function loadVoices() {
   const voices = window.speechSynthesis.getVoices();
   maleVoice = voices.find(v =>
@@ -28,39 +48,19 @@ if ('speechSynthesis' in window) {
 }
 
 function speakText(text) {
-  if(canTalk){
-  if ('speechSynthesis' in window) {
+  if (canTalk && 'speechSynthesis' in window) {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'en-US';
-    utterance.volume = narrationVolume; // <- controle de volume
+    utterance.volume = narrationVolume;
     if (maleVoice) utterance.voice = maleVoice;
 
-    // Acende a luz azul
-    utterance.onstart = () => {
-      const light = document.getElementById("pokedex-light");
-      light.style.backgroundColor = "rgb(75, 100, 255)";
-    };
+    utterance.onstart = () => startSpeakingLightEffect();
+    utterance.onend = () => stopSpeakingLightEffect();
 
-    // Apaga a luz azul
-    utterance.onend = () => {
-      const light = document.getElementById("pokedex-light");
-      light.style.backgroundColor = "rgb(0, 0, 0)";
-    };
-
-   utterance.onstart = () => {
-  startSpeakingLightEffect();
-};
-
-utterance.onend = () => {
-  stopSpeakingLightEffect();
-};
-
-window.speechSynthesis.speak(utterance);
+    window.speechSynthesis.speak(utterance);
   }
-}else{
-  return
-}}
+}
 
 async function fetchPokemon(query) {
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
@@ -73,17 +73,13 @@ async function preloadInitial(centerId, skipSpeak = true) {
   const pokemonImage = document.getElementById("pokemonImage");
 
   if (!isFirstLoad) {
-  visor.innerText = "Loading data...";
-}
+    visor.innerText = "Loading data...";
+  }
   pokemonImage.style.visibility = "hidden";
   pokemonImage.src = "";
 
   const start = Math.max(1, centerId - 2);
-  const ids = [];
-
-  for (let i = 0; i < 5; i++) {
-    ids.push(start + i);
-  }
+  const ids = Array.from({ length: 5 }, (_, i) => start + i);
 
   try {
     const promises = ids.map(id => fetchPokemon(id));
@@ -96,35 +92,28 @@ async function preloadInitial(centerId, skipSpeak = true) {
   } catch (error) {
     setTimeout(() => {
       console.error("Erro ao pré-carregar:", error);
-    
     }, 2300);
-    
   }
 }
 
 function displayPokemon(pokemon, skipSpeak = false) {
   const visor = document.getElementById("visor");
   const pokemonImage = document.getElementById("pokemonImage");
+  const tela = document.getElementById("tela");
 
   if (isEaster) {
     visor.innerText = "EASTER EGG 🤣🤣🤣";
-
-    
-    // Exibe imagem especial de easter egg se desejar
     pokemonImage.src = "";
     pokemonImage.style.opacity = 1;
     pokemonImage.style.visibility = "hidden";
-    
     return;
   }
 
   if (!isFirstLoad) {
-  visor.innerText = "Loading data...";
-}
-
-  if (!pokemon || !pokemon.id || !pokemon.name) {
-    return;
+    visor.innerText = "Loading data...";
   }
+
+  if (!pokemon || !pokemon.id || !pokemon.name) return;
 
   visor.innerText = `#${pokemon.id} - ${pokemon.name}`;
 
@@ -138,6 +127,13 @@ function displayPokemon(pokemon, skipSpeak = false) {
 
   pokemonImage.style.opacity = 0;
   pokemonImage.style.visibility = "hidden";
+
+  // Aplica o fundo de acordo com o tipo principal, ou padrão "grass"
+  const mainType = pokemon.types?.[0]?.type?.name;
+  let backgroundToUse = backgroundImages[mainType] || backgroundImages["grass"];
+  if (backgroundToUse) {
+    tela.style.backgroundImage = `url('${backgroundToUse}')`;
+  }
 
   if (isFirstLoad) {
     setTimeout(() => {
@@ -155,13 +151,8 @@ function displayPokemon(pokemon, skipSpeak = false) {
   showStats(pokemon, skipSpeak);
 }
 
-
-
 function displayNotFound() {
-
   const pokemonImage = document.getElementById("pokemonImage");
-
-  
 
   pokemonImage.src = "./assets/yoshi.gif";
   pokemonImage.style.opacity = 1;

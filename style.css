@@ -18,7 +18,7 @@ body{
     align-items: center;
 }
 
-.pokedex{
+#pokedex{
     background-image: url(./assets/pokedex.png);
     background-size: auto;
     background-position: center;
@@ -28,8 +28,46 @@ body{
     border: 0.5rem solid transparent;
     position: relative;
    
+    
+
+   
   
 }
+
+
+.pokedex-animation {
+  animation: fallBounceSpin 1.5s ease-in-out forwards;
+  transform-origin: center;
+}
+
+@keyframes fallBounceSpin {
+  0% {
+    transform: translateY(-500px) rotate(0deg) scale(15);
+   
+  }
+
+  80% {
+    transform: translateY(0px) rotate(2160deg) scale(1);
+   
+  }
+
+  85% {
+    transform: translateY(-50px) rotate(2160deg) scale(1.05);
+  }
+
+  90% {
+    transform: translateY(0px) rotate(2160deg) scale(0.98);
+  }
+
+  98% {
+    transform: translateY(-20px) rotate(2160deg) scale(1.02);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(2160deg) scale(1);
+  }
+}
+
 header{
    border: 10px solid transparent;
     width: 32rem;
@@ -87,6 +125,65 @@ header{
   pointer-events: none;
   z-index: 1;
 }
+
+
+#start {
+  width: 2560px;
+  height: 1440px;
+  position: absolute;
+  font-size: x-large;
+  background-color:#272525;
+  background-size: cover;
+  font-family:"Press Start 2P", system-ui; ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  
+  
+  
+  z-index: 10;
+}
+
+#startImage{
+  background-image: url(./assets/startImage.png) ;
+  background-size: cover;
+  background-position: center;
+  width: 10%;
+  height: 18%;
+}
+
+#start h1{
+  color: #ffffff;
+  font-size: 2rem;
+  margin-bottom: 4rem;
+}
+
+#startButton{
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+#startButton:hover{
+  cursor: pointer;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+
+
+#instructions{
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+#instructions:hover{
+  cursor: pointer;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
 
 #easter{
    width: 21.58rem;

@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+      <script>
+    // Antes de qualquer coisa: se autoTurnOn estiver ativo, esconda o #start imediatamente
+    if (localStorage.getItem("autoTurnOn") === "true") {
+      document.documentElement.classList.add("skip-start");
+    }
+  </script>
+
+  <style>
+    .skip-start #start {
+      display: none !important;
+    }
+  </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
@@ -11,9 +23,14 @@
     <link rel="icon" type="image/png" href="./assets/fav.png">
 </head>
 <body>
-   
+   <div id="start">
+    <div id="startImage"></div>
+    <h1>Pokedex Online</h1>
+    <div id="startButton" onclick="startPokedex()">Start</div>
+    <div id="instructions">Instructions</div>
+</div>
 
-    <div class="pokedex">
+    <div id="pokedex">
     
         <header>
             <div id="pokedex-light">
@@ -30,10 +47,12 @@
 </div>
 
 <div id="keyboard" class="keyboard">
-  <!-- Letras A-Z -->
+ 
   
 </div></div>
+
             <div id="tela">
+                
                 <div id="easter"></div>
                 <img id="pokemonImage"></img>
                 <div id="stats" class="stats-screen">
@@ -74,6 +93,7 @@
     <audio src="./assets/keyboardSound.wav" id="typeAudio"></audio>
     <audio src="./assets/next.wav" id="nextAudio"></audio>
     <audio src="./assets/select.wav" id="selectAudio"></audio>
+    <audio src="./assets/caindo.mp3" id="caindo"></audio>
    <script src="./script.js" defer></script>
    <script src="./pokemons.js" defer></script>
    <script src="./keyboard.js" defer></script>

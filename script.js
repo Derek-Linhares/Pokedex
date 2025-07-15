@@ -1,7 +1,11 @@
+//COLOCAR AS FOTOS DE FUNDO DE CADA POKEMON BASEADO NO TIPO DELE
+
+
+let caindo = document.getElementById("caindo")
 let tela = document.getElementById("tela")
 let telaOff = document.getElementById("telaOff")
 let theme = document.getElementById("theme")
-
+let pokedex = document.getElementById("pokedex")
 let canOn = true;
 let canClick = false;
 let visor = document.getElementById("visor");
@@ -14,7 +18,7 @@ let canTalk = false;
 let toggleSound = document.getElementById("toggleSound")
 let toggleMusic = document.getElementById("toggleMusic")
 let toggleTalk = document.getElementById("toggleTalk")
-
+let startScreen = document.getElementById("start")
 let typeAudio = document.getElementById("typeAudio")
 let selectAudio = document.getElementById("selectAudio")
 theme.volume = 0.03;
@@ -33,6 +37,7 @@ window.addEventListener("load", () => {
     localStorage.removeItem("autoTurnOn");
 
     setTimeout(() => {
+      startScreen.style.display = "none"; 
       window.skipSpeakOnce = true;
       handleSearchInput("1"); 
       visor.classList.add("visible");
@@ -75,6 +80,7 @@ function turnOff() {
   canTalk = false;
   canOn = true;
   stopAllSounds();
+  stopSpeakingLightEffect();
   digitalKeyboard.style.visibility = "hidden";
 
   toggleMusic.style.backgroundColor = "black";
@@ -85,6 +91,15 @@ function turnOff() {
     window.speechSynthesis.cancel();
   }
 }
+
+
+function startPokedex(){
+  startScreen.style.display = "none";
+  pokedex.classList.add("pokedex-animation");
+  caindo.play();
+}
+
+
 
 function stopAllSounds() {
   const audios = document.querySelectorAll('audio');
@@ -242,6 +257,7 @@ toggleMusic.addEventListener("click", () => {
     if(animationFrameId){
       cancelAnimationFrame(animationFrameId);
       animationFrameId = null;
+      
     }
     // resetar luz quando a música parar
     const light = document.getElementById("pokedex-light");
