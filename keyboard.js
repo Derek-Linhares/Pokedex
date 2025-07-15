@@ -10,32 +10,28 @@ const easter = document.getElementById("easter");
 const easterEggs = {
   ramon: {
     gif: "./assets/ramon.gif",
-    audio: audio1
+    audio: audio1,
   },
   cj: {
     gif: "./assets/cj.gif",
-    audio: audio2
+    audio: audio2,
   },
   nemesis: {
     gif: "./assets/nemesis.gif",
-    audio: audio3
-  }
+    audio: audio3,
+  },
 };
 const yoshiImage = new Image();
 yoshiImage.src = "./assets/yoshi.gif";
 
-
-Object.values(easterEggs).forEach(entry => {
+Object.values(easterEggs).forEach((entry) => {
   const img = new Image();
   img.src = entry.gif;
 });
 
-const keys = [
-  ..."1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-  "←", "OK", "ESP"
-];
+const keys = [..."1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ", "←", "OK", "ESP"];
 
-keys.forEach(k => {
+keys.forEach((k) => {
   const btn = document.createElement("div");
   btn.textContent = k;
   btn.classList.add("key");
@@ -51,20 +47,20 @@ keys.forEach(k => {
     btn.classList.add("wide");
   }
 
-btn.addEventListener("click", () => {
-  if (canPlaySound) playAudio(typeAudio);
+  btn.addEventListener("click", () => {
+    if (canPlaySound) playAudio(typeAudio);
 
-  if (k === "←") {
-    output.textContent = output.textContent.slice(0, -1);
-  } else if (k === "ESP") {
-    output.textContent += " ";
-  } else if (k === "OK") {
-    const query = output.textContent.trim();
-    buscarPokemon(query === "" ? "1" : query);
-  } else {
-    output.textContent += k;
-  }
-});
+    if (k === "←") {
+      output.textContent = output.textContent.slice(0, -1);
+    } else if (k === "ESP") {
+      output.textContent += " ";
+    } else if (k === "OK") {
+      const query = output.textContent.trim();
+      buscarPokemon(query === "" ? "1" : query);
+    } else {
+      output.textContent += k;
+    }
+  });
 
   keyboard.appendChild(btn);
 });
@@ -73,17 +69,16 @@ search.addEventListener("click", () => {
   if (canPlaySound) playAudio(selectAudio);
 
   if (!canOn && canClick) {
-    if (digitalKeyboard.style.visibility === 'visible') {
-      digitalKeyboard.style.visibility = 'hidden';
+    if (digitalKeyboard.style.visibility === "visible") {
+      digitalKeyboard.style.visibility = "hidden";
     } else {
-      digitalKeyboard.style.visibility = 'visible';
+      digitalKeyboard.style.visibility = "visible";
     }
   }
 });
 
 function buscarPokemon(nome) {
   digitalKeyboard.style.visibility = "hidden";
-
 
   mostrarEasterEgg(nome);
   handleSearchInput(nome);
@@ -95,10 +90,10 @@ async function handleSearchInput(input) {
   const pokemonImage = document.getElementById("pokemonImage");
 
   if (!isFirstLoad) {
-  visor.innerText = "Loading data...";
-}
+    visor.innerText = "Loading data...";
+  }
   pokemonImage.style.visibility = "hidden";
-  pokemonImage.src = ""; 
+  pokemonImage.src = "";
   let query = input.trim().toLowerCase();
   if (!query) return;
 
@@ -111,26 +106,26 @@ async function handleSearchInput(input) {
       poke = await fetchPokemon(query);
     }
 
-   const shouldSkipSpeak = window.skipSpeakOnce === true;
-  window.skipSpeakOnce = false;
-  await preloadInitial(poke.id, shouldSkipSpeak);
+    const shouldSkipSpeak = window.skipSpeakOnce === true;
+    window.skipSpeakOnce = false;
+    await preloadInitial(poke.id, shouldSkipSpeak);
   } catch (error) {
-  setTimeout(() => {
- 
-  if (!isEaster) displayNotFound();
-}, 600);
-    
+    setTimeout(() => {
+      if (!isEaster) displayNotFound();
+    }, 600);
   }
 }
 
 function mostrarEasterEgg(nome) {
   const nomeLower = nome.trim().toLowerCase();
   const egg = easterEggs[nomeLower];
-  tela.style.backgroundImage = "url(./assets/fundo.jpg)"
+  tela.style.backgroundImage = "url(./assets/fundo.jpg)";
   stopSpeakingLightEffect();
-  if ('speechSynthesis' in window) {
+
+  if ("speechSynthesis" in window) {
     window.speechSynthesis.cancel();
   }
+
   if (!egg) {
     isEaster = false;
     return;
@@ -138,7 +133,12 @@ function mostrarEasterEgg(nome) {
 
   isEaster = true;
 
-  
+  const estadoAnterior = {
+    numero: visor.innerText,
+    imagemSrc: pokemonImage.src,
+    alt: pokemonImage.alt,
+  };
+
   easter.style.backgroundImage = `url('${egg.gif}')`;
   easter.style.display = "block";
 
@@ -146,14 +146,13 @@ function mostrarEasterEgg(nome) {
     playAudio(egg.audio);
   }
 
- 
   setTimeout(() => {
     isEaster = false;
     easter.style.display = "none";
 
-    visor.innerText = "#??? - Not Found";
-
-    pokemonImage.src = yoshiImage.src;
+    visor.innerText = estadoAnterior.numero;
+    pokemonImage.src = estadoAnterior.imagemSrc;
+    pokemonImage.alt = estadoAnterior.alt || "";
     pokemonImage.style.opacity = 1;
     pokemonImage.style.visibility = "visible";
   }, 3000);

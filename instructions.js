@@ -9,18 +9,17 @@ let desligandoSection = document.getElementById("desligandoSection");
 let finalSection = document.getElementById("finalSection");
 let language = "PT";
 
-
 function preloadImages() {
   const images = [
-    './assets/manualImage.png',
-    './assets/ligando.png',
-    './assets/navigation.png',
-    './assets/status.png',
-    './assets/search.png',
-    './assets/soundsMode.png'
+    "./assets/manualImage.png",
+    "./assets/ligando.png",
+    "./assets/navigation.png",
+    "./assets/status.png",
+    "./assets/search.png",
+    "./assets/soundsMode.png",
   ];
 
-  images.forEach(src => {
+  images.forEach((src) => {
     const img = new Image();
     img.src = src;
   });
@@ -28,41 +27,38 @@ function preloadImages() {
 
 preloadImages();
 
-
 function changeLanguage(lang) {
   language = lang;
   updateMenuLanguage(language);
   showInstructions();
 }
 
-
-
 const allSections = [
-  document.getElementById('welcome'),
-  document.getElementById('manual'),
-  document.getElementById('ligando'),
-  document.getElementById('navigation'),
-  document.getElementById('status'),
-  document.getElementById('searchSection'),
-  document.getElementById('soundsSection'),
-  document.getElementById('desligandoSection'),
-  document.getElementById('finalSection')
-]
+  document.getElementById("welcome"),
+  document.getElementById("manual"),
+  document.getElementById("ligando"),
+  document.getElementById("navigation"),
+  document.getElementById("status"),
+  document.getElementById("searchSection"),
+  document.getElementById("soundsSection"),
+  document.getElementById("desligandoSection"),
+  document.getElementById("finalSection"),
+];
 
 function showSection(sectionId) {
-  allSections.forEach(sec => sec.style.display = 'none');
-  document.getElementById(sectionId).style.display = 'block';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  allSections.forEach((sec) => (sec.style.display = "none"));
+  document.getElementById(sectionId).style.display = "block";
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function showAllSections() {
-  allSections.forEach(sec => sec.style.display = 'block');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  allSections.forEach((sec) => (sec.style.display = "block"));
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 const menuTexts = {
   PT: {
-    btnBack:"Inicio",
+    btnBack: "Inicio",
     btnAll: "Mostrar todos",
     btnWelcome: "Bem-vindo",
     btnManual: "Guia",
@@ -72,10 +68,10 @@ const menuTexts = {
     btnSearch: "Busca",
     btnSounds: "Sons",
     btnDesligando: "Desligando",
-    btnFinal: "Final"
+    btnFinal: "Final",
   },
   EN: {
-    btnBack:"Home",
+    btnBack: "Home",
     btnAll: "Show all",
     btnWelcome: "Welcome",
     btnManual: "Guide",
@@ -85,10 +81,10 @@ const menuTexts = {
     btnSearch: "Search",
     btnSounds: "Sounds",
     btnDesligando: "Shutting Down",
-    btnFinal: "Final"
+    btnFinal: "Final",
   },
   ES: {
-     btnBack:"Inicio",
+    btnBack: "Inicio",
     btnAll: "Mostrar todo",
     btnWelcome: "Bienvenido",
     btnManual: "Guía",
@@ -98,8 +94,8 @@ const menuTexts = {
     btnSearch: "Búsqueda",
     btnSounds: "Sonido",
     btnDesligando: "Apagando",
-    btnFinal: "Final"
-  }
+    btnFinal: "Final",
+  },
 };
 
 function updateMenuLanguage(lang) {
@@ -109,9 +105,6 @@ function updateMenuLanguage(lang) {
     if (button) button.innerText = texts[id];
   }
 }
-
-
-
 
 const welcomeEn = `
   <h1>Welcome to the user guide for your new Pokédex!</h2>
@@ -379,7 +372,6 @@ const powerOffEs = `
   </div>
 `;
 
-
 const finalPt = `
   <h1>Fim da Jornada... ou o Início?</h1>
   <div class="text" id="finalText">
@@ -407,17 +399,14 @@ const finalEs = `
   </div>
 `;
 
-
-
-
 function showInstructions() {
-    document.getElementById('language').style.display = 'none';
-    document.getElementById('instructions').style.display = 'block';
-    document.querySelector('header').style.display = 'block';
-    document.getElementById('container').style.display = 'block';
-     switch (language) {
+  document.getElementById("language").style.display = "none";
+  document.getElementById("instructions").style.display = "block";
+  document.querySelector("header").style.display = "block";
+  document.getElementById("container").style.display = "block";
+  switch (language) {
     case "EN":
-         welcome.innerHTML = welcomeEn;
+      welcome.innerHTML = welcomeEn;
       manual.innerHTML = manualEn;
       ligando.innerHTML = ligandoEn;
       navigation.innerHTML = navigationEn;
@@ -425,10 +414,10 @@ function showInstructions() {
       searchSection.innerHTML = searchEn;
       soundsSection.innerHTML = soundsModeEn;
       desligandoSection.innerHTML = powerOffEn;
-      finalSection.innerHTML = finalEn
+      finalSection.innerHTML = finalEn;
       break;
     case "PT":
-            welcome.innerHTML = welcomePt;
+      welcome.innerHTML = welcomePt;
       manual.innerHTML = manualPt;
       ligando.innerHTML = ligandoPt;
       navigation.innerHTML = navigationPt;
@@ -436,7 +425,7 @@ function showInstructions() {
       searchSection.innerHTML = searchPt;
       soundsSection.innerHTML = soundsModePt;
       desligandoSection.innerHTML = powerOffPt;
-      finalSection.innerHTML = finalPt
+      finalSection.innerHTML = finalPt;
       break;
     case "ES":
       welcome.innerHTML = welcomeEs;
@@ -447,7 +436,7 @@ function showInstructions() {
       searchSection.innerHTML = searchEs;
       soundsSection.innerHTML = soundsModeEs;
       desligandoSection.innerHTML = powerOffEs;
-      finalSection.innerHTML = finalEs
+      finalSection.innerHTML = finalEs;
       break;
     default:
       welcome.innerHTML = welcomeEn;
@@ -455,5 +444,4 @@ function showInstructions() {
   }
 }
 
-
-updateMenuLanguage(language)
+updateMenuLanguage(language);

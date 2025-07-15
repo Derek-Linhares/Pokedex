@@ -14,29 +14,27 @@ const statsDiv = document.getElementById("stats");
 const scrollStep = 40;
 
 const backgroundImages = {
-  bug: './assets/backgrounds/bug.png',
-  dark:  './assets/backgrounds/dark.png',
-  dragon: './assets/backgrounds/dragon.png',
-  electric: './assets/backgrounds/electric.png',
-  fairy: './assets/backgrounds/fairy.png',
-  fighting: './assets/backgrounds/fighting.png',
-  fire: './assets/backgrounds/fire.png',
-  flying: './assets/backgrounds/flying.png',
-  ghost:  './assets/backgrounds/ghost.png',
-  grass: './assets/backgrounds/grass.jpg',
-  ground: './assets/backgrounds/ground.png',
-  ice: './assets/backgrounds/ice.png',
-  normal: './assets/backgrounds/normal.png',
-  poison: './assets/backgrounds/poison.png',
-  psychic: './assets/backgrounds/psychic.png',
-  rock: './assets/backgrounds/rock.png',
+  bug: "./assets/backgrounds/bug.png",
+  dark: "./assets/backgrounds/dark.png",
+  dragon: "./assets/backgrounds/dragon.png",
+  electric: "./assets/backgrounds/electric.png",
+  fairy: "./assets/backgrounds/fairy.png",
+  fighting: "./assets/backgrounds/fighting.png",
+  fire: "./assets/backgrounds/fire.png",
+  flying: "./assets/backgrounds/flying.png",
+  ghost: "./assets/backgrounds/ghost.png",
+  grass: "./assets/backgrounds/grass.jpg",
+  ground: "./assets/backgrounds/ground.png",
+  ice: "./assets/backgrounds/ice.png",
+  normal: "./assets/backgrounds/normal.png",
+  poison: "./assets/backgrounds/poison.png",
+  psychic: "./assets/backgrounds/psychic.png",
+  rock: "./assets/backgrounds/rock.png",
   /*shadow:  './assets/backgrounds/shadow.png',
   steel:  './assets/backgrounds/steel.png',
   unknown:  './assets/backgrounds/unknown.png',*/
-  water: './assets/backgrounds/water.png',
-  
+  water: "./assets/backgrounds/water.png",
 };
-
 
 function preloadBackgrounds() {
   for (const type in backgroundImages) {
@@ -48,23 +46,26 @@ preloadBackgrounds();
 
 function loadVoices() {
   const voices = window.speechSynthesis.getVoices();
-  maleVoice = voices.find(v =>
-    v.lang.startsWith("en") &&
-    (v.name.includes("Daniel") || v.name.includes("Google US English") || v.name.includes("Male"))
+  maleVoice = voices.find(
+    (v) =>
+      v.lang.startsWith("en") &&
+      (v.name.includes("Daniel") ||
+        v.name.includes("Google US English") ||
+        v.name.includes("Male"))
   );
 }
 
-if ('speechSynthesis' in window) {
+if ("speechSynthesis" in window) {
   window.speechSynthesis.onvoiceschanged = loadVoices;
   loadVoices();
-  setTimeout(() => speechSynthesis.getVoices(), 100); 
+  setTimeout(() => speechSynthesis.getVoices(), 100);
 }
 
 function speakText(text) {
-  if (canTalk && 'speechSynthesis' in window) {
+  if (canTalk && "speechSynthesis" in window) {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
+    utterance.lang = "en-US";
     utterance.volume = narrationVolume;
     if (maleVoice) utterance.voice = maleVoice;
 
@@ -78,13 +79,11 @@ function speakText(text) {
 async function fetchPokemon(query) {
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
-    
-  
+
     if (!response.ok) return null;
 
     return await response.json();
   } catch {
-    
     return null;
   }
 }
@@ -103,7 +102,7 @@ async function preloadInitial(centerId, skipSpeak = true) {
   const ids = Array.from({ length: 5 }, (_, i) => start + i);
 
   try {
-    const promises = ids.map(id => fetchPokemon(id));
+    const promises = ids.map((id) => fetchPokemon(id));
     preloadedPokemons = await Promise.all(promises);
     currentIndex = centerId - start;
 
@@ -140,8 +139,13 @@ function displayPokemon(pokemon, skipSpeak = false) {
 
   let spriteToUse;
   if (pokemon.id <= 649) {
-    const animatedSprite = pokemon?.sprites?.versions?.['generation-v']?.['black-white']?.animated?.front_default;
-    spriteToUse = animatedSprite || pokemon?.sprites?.front_default || "./assets/bulbasaur.gif";
+    const animatedSprite =
+      pokemon?.sprites?.versions?.["generation-v"]?.["black-white"]?.animated
+        ?.front_default;
+    spriteToUse =
+      animatedSprite ||
+      pokemon?.sprites?.front_default ||
+      "./assets/bulbasaur.gif";
   } else {
     spriteToUse = pokemon?.sprites?.front_default || "./assets/bulbasaur.gif";
   }
@@ -149,7 +153,6 @@ function displayPokemon(pokemon, skipSpeak = false) {
   pokemonImage.style.opacity = 0;
   pokemonImage.style.visibility = "hidden";
 
- 
   const mainType = pokemon.types?.[0]?.type?.name;
   let backgroundToUse = backgroundImages[mainType] || backgroundImages["grass"];
   if (backgroundToUse) {
@@ -174,7 +177,7 @@ function displayPokemon(pokemon, skipSpeak = false) {
 
 function displayNotFound() {
   const pokemonImage = document.getElementById("pokemonImage");
-  tela.style.backgroundImage = "url(./assets/fundo.jpg)"
+  tela.style.backgroundImage = "url(./assets/fundo.jpg)";
   pokemonImage.src = yoshiImage.src;
   pokemonImage.style.opacity = 1;
   pokemonImage.style.visibility = "visible";
@@ -187,12 +190,12 @@ function displayNotFound() {
   const moveEl = document.getElementById("stat-move");
   const imageEl = document.getElementById("stat-image");
 
-  imageEl.src =  yoshiImage.src;;
+  imageEl.src = yoshiImage.src;
   nameEl.textContent = `Name: ???`;
   attackEl.textContent = `Attack: ???`;
   defenseEl.textContent = `Defense: ???`;
   typeEl.textContent = `Type: ???`;
-  moveEl.textContent = `Main Attack: ???`; 
+  moveEl.textContent = `Main Attack: ???`;
 }
 
 leftArrow.addEventListener("click", async () => {
@@ -210,17 +213,17 @@ leftArrow.addEventListener("click", async () => {
           preloadedPokemons.unshift(newPokemon);
           displayPokemon(newPokemon);
         } catch (e) {
-          
           displayNotFound();
         }
       }
     }
   }
 });
+
 rightArrow.addEventListener("click", async () => {
   if (canPlaySound) playAudio(nextAudio);
   if (!canOn && canClick) {
-      if (preloadedPokemons[currentIndex].id === 1025) {
+    if (preloadedPokemons[currentIndex].id === 1025) {
       return;
     }
 
@@ -252,34 +255,60 @@ async function showStats(pokemon, skipSpeak = false) {
   const imageEl = document.getElementById("stat-image");
 
   const typeIcons = {
-    normal: "⭐", fighting: "🥊", flying: "🕊️", poison: "☠️", ground: "🌍",
-    rock: "🪨", bug: "🐛", ghost: "👻", steel: "⚙️", fire: "🔥", water: "💧",
-    grass: "🍃", electric: "⚡", psychic: "🔮", ice: "❄️", dragon: "🐉",
-    dark: "🌑", fairy: "🧚‍♀️", unknown: "❓", shadow: "👤",
+    normal: "⭐",
+    fighting: "🥊",
+    flying: "🕊️",
+    poison: "☠️",
+    ground: "🌍",
+    rock: "🪨",
+    bug: "🐛",
+    ghost: "👻",
+    steel: "⚙️",
+    fire: "🔥",
+    water: "💧",
+    grass: "🍃",
+    electric: "⚡",
+    psychic: "🔮",
+    ice: "❄️",
+    dragon: "🐉",
+    dark: "🌑",
+    fairy: "🧚‍♀️",
+    unknown: "❓",
+    shadow: "👤",
   };
 
   const staticImage = pokemon?.sprites?.front_default || yoshiImage.src;
   imageEl.src = staticImage;
   nameEl.textContent = `Name: ${pokemon.name}`;
 
-  const attack = pokemon.stats.find(stat => stat.stat.name === "attack")?.base_stat;
-  const defense = pokemon.stats.find(stat => stat.stat.name === "defense")?.base_stat;
+  const attack = pokemon.stats.find(
+    (stat) => stat.stat.name === "attack"
+  )?.base_stat;
+  const defense = pokemon.stats.find(
+    (stat) => stat.stat.name === "defense"
+  )?.base_stat;
   attackEl.textContent = `Attack: ${attack}`;
   defenseEl.textContent = `Defense: ${defense}`;
 
-  const typesWithIcons = pokemon.types.map(t => {
-    const icon = typeIcons[t.type.name] || "";
-    return `${icon} ${t.type.name}`;
-  }).join(" / ");
+  const typesWithIcons = pokemon.types
+    .map((t) => {
+      const icon = typeIcons[t.type.name] || "";
+      return `${icon} ${t.type.name}`;
+    })
+    .join(" / ");
   typeEl.textContent = `Type: ${typesWithIcons}`;
 
   try {
     for (const move of pokemon.moves) {
-      const moveData = await fetch(move.move.url).then(res => res.json());
+      const moveData = await fetch(move.move.url).then((res) => res.json());
       if (moveData.power !== null) {
         moveEl.textContent = `Main Attack: ${moveData.name}`;
         if (statsVisible && !skipSpeak) {
-          const speech = `${pokemon.name}. Attack ${attack}. Defense ${defense}. Type ${pokemon.types.map(t => t.type.name).join(" and ")}. Main Attack: ${moveData.name}.`;
+          const speech = `${
+            pokemon.name
+          }. Attack ${attack}. Defense ${defense}. Type ${pokemon.types
+            .map((t) => t.type.name)
+            .join(" and ")}. Main Attack: ${moveData.name}.`;
           speakText(speech);
         }
         return;

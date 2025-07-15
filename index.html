@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-      <script>
-  
+  <script>
+
     if (localStorage.getItem("autoTurnOn") === "true") {
       document.documentElement.classList.add("skip-start");
     }
@@ -13,93 +14,96 @@
       display: none !important;
     }
   </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokedex</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="./assets/fav.png">
-    <link rel="preload" as="image" href="./assets/yoshi.gif">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokedex</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="./assets/fav.png">
+  <link rel="preload" as="image" href="./assets/yoshi.gif">
 </head>
+
 <body>
-   <div id="start">
+  <div id="start">
     <div id="startImage"></div>
     <h1>Pokedex Online</h1>
     <div id="startButton" onclick="startPokedex()">Start</div>
     <div id="instructions" onclick="window.location.href='instructions.html'">Instructions</div>
 
-</div>
+  </div>
 
-    <div id="pokedex">
-    
-        <header>
-            <div id="pokedex-light">
-                <div id="reflexo"></div>
-            </div>
-            <div id="toggleSound"></div>
-            <div id="toggleTalk"></div>
-            <div id="toggleMusic"></div>
-        </header>
-        <main>
-            <div id="digitalKeyboard">
-<div id="screen">
-<div id="output"></div>
-</div>
+  <div id="pokedex">
 
-<div id="keyboard" class="keyboard">
- 
-  
-</div></div>
+    <header>
+      <div id="pokedex-light">
+        <div id="reflexo"></div>
+      </div>
+      <div id="toggleSound"></div>
+      <div id="toggleTalk"></div>
+      <div id="toggleMusic"></div>
+    </header>
+    <main>
+      <div id="digitalKeyboard">
+        <div id="screen">
+          <div id="output"></div>
+        </div>
 
-            <div id="tela">
-                
-                <div id="easter"></div>
-                <img id="pokemonImage"></img>
-                <div id="stats" class="stats-screen">
-                    <img id="stat-image" alt="Imagem do Pokémon" />
-                    <div id="text">
-                    <p id="stat-name"></p>
-                    <p id="stat-attack"></p>
-                    <p id="stat-defense"></p>
-                    <p id="stat-type"></p>
-                    <p id="stat-move"></p>
-                    </div>
-          
-            </div>
-            </div>
-            <div id="telaOff"></div>
+        <div id="keyboard" class="keyboard">
 
-            <div id="mask"></div>
-            <div class="teclado">
-                <div id="select" ></div>
-                <div id="on" onclick="turnOn()"></div>
-                <div id="off" onclick="turnOff()"></div>
-                <div id="upArrow"></div>
-                <div id="downArrow"></div>
-                <div id="leftArrow"></div>
-                <div id="rightArrow"></div>
-              
-                <div id="search"></div>
-               
-            </div>
-            <div id="visor"></div>
-        </main>
-   
-    </div>
-    <audio src="./assets/pokemonTheme.mp3" id="theme" loop></audio>
-    <audio src="./assets/audio1.mp3" id="audio1"></audio>
-    <audio src="./assets/audio2.mp3" id="audio2"></audio>
-    <audio src="./assets/audio3.mp3" id="audio3"></audio>
-    <audio src="./assets/keyboardSound.wav" id="typeAudio"></audio>
-    <audio src="./assets/next.wav" id="nextAudio"></audio>
-    <audio src="./assets/select.wav" id="selectAudio"></audio>
-    <audio src="./assets/caindo.mp3" id="caindo"></audio>
-   <script src="./script.js" defer></script>
-   <script src="./pokemons.js" defer></script>
-   <script src="./keyboard.js" defer></script>
-   <div id="sr-reader" aria-live="polite" aria-atomic="true" class="sr-only" role="status"></div>
+
+        </div>
+      </div>
+
+      <div id="tela">
+
+        <div id="easter"></div>
+        <img id="pokemonImage"></img>
+        <div id="stats" class="stats-screen">
+          <img id="stat-image" alt="Imagem do Pokémon" />
+          <div id="text">
+            <p id="stat-name"></p>
+            <p id="stat-attack"></p>
+            <p id="stat-defense"></p>
+            <p id="stat-type"></p>
+            <p id="stat-move"></p>
+          </div>
+
+        </div>
+      </div>
+      <div id="telaOff"></div>
+
+      <div id="mask"></div>
+      <div class="teclado">
+        <div id="select"></div>
+        <div id="on" onclick="turnOn()"></div>
+        <div id="off" onclick="turnOff()"></div>
+        <div id="upArrow"></div>
+        <div id="downArrow"></div>
+        <div id="leftArrow"></div>
+        <div id="rightArrow"></div>
+
+        <div id="search"></div>
+
+      </div>
+      <div id="visor"></div>
+    </main>
+
+  </div>
+  <audio src="./assets/pokemonTheme.mp3" id="theme" loop></audio>
+  <audio src="./assets/audio1.mp3" id="audio1"></audio>
+  <audio src="./assets/audio2.mp3" id="audio2"></audio>
+  <audio src="./assets/audio3.mp3" id="audio3"></audio>
+  <audio src="./assets/keyboardSound.wav" id="typeAudio"></audio>
+  <audio src="./assets/next.wav" id="nextAudio"></audio>
+  <audio src="./assets/select.wav" id="selectAudio"></audio>
+  <audio src="./assets/caindo.mp3" id="caindo"></audio>
+  <script src="./script.js" defer></script>
+  <script src="./pokemons.js" defer></script>
+  <script src="./keyboard.js" defer></script>
+  <div id="sr-reader" aria-live="polite" aria-atomic="true" class="sr-only" role="status"></div>
 
 </body>
+
 </html>

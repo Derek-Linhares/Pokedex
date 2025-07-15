@@ -1,64 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="icon" type="image/png" href="./assets/fav.png">
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/png" href="./assets/fav.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="instructions.css">
     <title>Instructions</title>
 </head>
+
 <body>
     <div id="language">
         <h1>Languages</h1>
-        <div id="bandeiras" >
-            <div id="usa"  class = "flag"  onclick="changeLanguage('EN')"></div>
-        <div id="brasil" class = "flag"  onclick="changeLanguage('PT')"></div>
-        <div id="spain" class = "flag"  onclick="changeLanguage('ES')"></div>
+        <div id="bandeiras">
+            <div id="usa" class="flag" onclick="changeLanguage('EN')"></div>
+            <div id="brasil" class="flag" onclick="changeLanguage('PT')"></div>
+            <div id="spain" class="flag" onclick="changeLanguage('ES')"></div>
         </div>
-       <a href="index.html">HomePage</a>
+        <a href="index.html">HomePage</a>
     </div>
 
     <div id="instructions"></div>
-        <header>
-<nav id="topMenu">
-    
-    <button id="btnBack" onclick="window.location.href='index.html'">Inicio</button>
-    <button id="btnAll" onclick="showAllSections()">Mostrar todos</button>
-  <button id="btnWelcome" onclick="showSection('welcome')">Bem-vindo</button>
-  <button id="btnManual" onclick="showSection('manual')">Guia</button>
-  <button id="btnLigando" onclick="showSection('ligando')">Ligando</button>
-  <button id="btnNavigation" onclick="showSection('navigation')">Navegação</button>
-  <button id="btnStatus" onclick="showSection('status')">Status</button>
-  <button id="btnSearch" onclick="showSection('searchSection')">Busca</button>
-  <button id="btnSounds" onclick="showSection('soundsSection')">Sons</button>
-  <button id="btnDesligando" onclick="showSection('desligandoSection')">Desligando</button>
-  <button id="btnFinal" onclick="showSection('finalSection')">finalSection</button>
-</nav>
+    <header>
+        <nav id="topMenu">
+
+            <button id="btnBack" onclick="window.location.href='index.html'">Inicio</button>
+            <button id="btnAll" onclick="showAllSections()">Mostrar todos</button>
+            <button id="btnWelcome" onclick="showSection('welcome')">Bem-vindo</button>
+            <button id="btnManual" onclick="showSection('manual')">Guia</button>
+            <button id="btnLigando" onclick="showSection('ligando')">Ligando</button>
+            <button id="btnNavigation" onclick="showSection('navigation')">Navegação</button>
+            <button id="btnStatus" onclick="showSection('status')">Status</button>
+            <button id="btnSearch" onclick="showSection('searchSection')">Busca</button>
+            <button id="btnSounds" onclick="showSection('soundsSection')">Sons</button>
+            <button id="btnDesligando" onclick="showSection('desligandoSection')">Desligando</button>
+            <button id="btnFinal" onclick="showSection('finalSection')">finalSection</button>
+        </nav>
 
 
     </header>
     <div id="container">
 
-    <main>
-        <div id="welcome" class="topic"></div>
-        <div id="manual" class="topic"></div>
-        <div id="ligando" class="topic"></div>
-        <div id="navigation" class="topic"></div>
-        <div id="status" class="topic"></div>
-        <div id="searchSection" class="topic"></div>
-        <div id="soundsSection" class="topic"></div>
-        <div id="desligandoSection" class="topic"></div>
-        <div id="finalSection" class="topic"></div>
-    </main>
+        <main>
+            <div id="welcome" class="topic"></div>
+            <div id="manual" class="topic"></div>
+            <div id="ligando" class="topic"></div>
+            <div id="navigation" class="topic"></div>
+            <div id="status" class="topic"></div>
+            <div id="searchSection" class="topic"></div>
+            <div id="soundsSection" class="topic"></div>
+            <div id="desligandoSection" class="topic"></div>
+            <div id="finalSection" class="topic"></div>
+        </main>
 
     </div>
 
-</div>
+    </div>
     <script src="./instructions.js"></script>
-    
+
 
 </body>
+
 </html>

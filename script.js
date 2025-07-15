@@ -1,11 +1,11 @@
-if ('speechSynthesis' in window) {
+if ("speechSynthesis" in window) {
   window.speechSynthesis.cancel();
 }
-let caindo = document.getElementById("caindo")
-let tela = document.getElementById("tela")
-let telaOff = document.getElementById("telaOff")
-let theme = document.getElementById("theme")
-let pokedex = document.getElementById("pokedex")
+let caindo = document.getElementById("caindo");
+let tela = document.getElementById("tela");
+let telaOff = document.getElementById("telaOff");
+let theme = document.getElementById("theme");
+let pokedex = document.getElementById("pokedex");
 let canOn = true;
 let canClick = false;
 let visor = document.getElementById("visor");
@@ -15,12 +15,12 @@ let nextAudio = document.getElementById("nextAudio");
 let canPlaySound = false;
 let canPlayMusic = false;
 let canTalk = false;
-let toggleSound = document.getElementById("toggleSound")
-let toggleMusic = document.getElementById("toggleMusic")
-let toggleTalk = document.getElementById("toggleTalk")
-let startScreen = document.getElementById("start")
-let typeAudio = document.getElementById("typeAudio")
-let selectAudio = document.getElementById("selectAudio")
+let toggleSound = document.getElementById("toggleSound");
+let toggleMusic = document.getElementById("toggleMusic");
+let toggleTalk = document.getElementById("toggleTalk");
+let startScreen = document.getElementById("start");
+let typeAudio = document.getElementById("typeAudio");
+let selectAudio = document.getElementById("selectAudio");
 theme.volume = 0.03;
 selectAudio.volume = 0.15;
 nextAudio.volume = 0.2;
@@ -28,7 +28,7 @@ typeAudio.volume = 0.5;
 
 const audioContext = new AudioContext();
 let analyser = audioContext.createAnalyser();
-analyser.fftSize = 256; 
+analyser.fftSize = 256;
 let source = null;
 let dataArray = new Uint8Array(analyser.frequencyBinCount);
 
@@ -37,9 +37,9 @@ window.addEventListener("load", () => {
     localStorage.removeItem("autoTurnOn");
 
     setTimeout(() => {
-      startScreen.style.display = "none"; 
+      startScreen.style.display = "none";
       window.skipSpeakOnce = true;
-      handleSearchInput("1"); 
+      handleSearchInput("1");
       visor.classList.add("visible");
       tela.classList.remove("on");
       void tela.offsetWidth;
@@ -65,7 +65,7 @@ window.addEventListener("load", () => {
 function turnOn() {
   if (canOn) {
     localStorage.setItem("autoTurnOn", "true");
-    location.reload(); 
+    location.reload();
   }
 }
 
@@ -87,32 +87,29 @@ function turnOff() {
   toggleSound.style.backgroundColor = "black";
   toggleTalk.style.backgroundColor = "black";
 
-  if ('speechSynthesis' in window) {
+  if ("speechSynthesis" in window) {
     window.speechSynthesis.cancel();
   }
 }
 
-
-function startPokedex(){
+function startPokedex() {
   startScreen.style.display = "none";
   pokedex.classList.add("pokedex-animation");
   caindo.play();
 }
 
-
-
 function stopAllSounds() {
-  const audios = document.querySelectorAll('audio');
-  audios.forEach(audio => {
+  const audios = document.querySelectorAll("audio");
+  audios.forEach((audio) => {
     audio.pause();
-    audio.currentTime = 0;  
+    audio.currentTime = 0;
   });
 }
 
-function playAudio(audio){
-  if(canPlaySound){
+function playAudio(audio) {
+  if (canPlaySound) {
     audio.currentTime = 0;
-    audio.play()
+    audio.play();
   }
 }
 
@@ -145,7 +142,7 @@ let isSpeaking = false;
 let animationFrameId = null;
 
 function updateLightForAudio() {
-  if (isSpeaking) return;  
+  if (isSpeaking) return;
 
   analyser.getByteFrequencyData(dataArray);
 
@@ -198,7 +195,7 @@ function lerp(a, b, t) {
 function speak(text) {
   if (!canTalk) return;
 
-  if ('speechSynthesis' in window) {
+  if ("speechSynthesis" in window) {
     const utterance = new SpeechSynthesisUtterance(text);
 
     utterance.onstart = () => {
@@ -218,50 +215,50 @@ select.addEventListener("click", () => {
   }
   if (canClick && !canOn) {
     const currentVisibility = getComputedStyle(stats).visibility;
-    stats.style.visibility = 
+    stats.style.visibility =
       currentVisibility === "hidden" ? "visible" : "hidden";
   }
 });
 
 toggleSound.addEventListener("click", () => {
-   if(canClick){
-  canPlaySound = !canPlaySound;
-  toggleSound.style.backgroundColor = canPlaySound ? "red" : "black";  
-}})
+  if (canClick) {
+    canPlaySound = !canPlaySound;
+    toggleSound.style.backgroundColor = canPlaySound ? "red" : "black";
+  }
+});
 
 toggleTalk.addEventListener("click", () => {
-  if(canClick){
-  canTalk = !canTalk;
-  toggleTalk.style.backgroundColor = canTalk ? "yellow" : "black";
+  if (canClick) {
+    canTalk = !canTalk;
+    toggleTalk.style.backgroundColor = canTalk ? "yellow" : "black";
 
-  if (!canTalk && 'speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
+    if (!canTalk && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
 
-    
-    stopSpeakingLightEffect();
-  }}
+      stopSpeakingLightEffect();
+    }
+  }
 });
 
 toggleMusic.addEventListener("click", () => {
-   if(canClick){
-  canPlayMusic = !canPlayMusic;
-  toggleMusic.style.backgroundColor = canPlayMusic ? "green" : "black";
+  if (canClick) {
+    canPlayMusic = !canPlayMusic;
+    toggleMusic.style.backgroundColor = canPlayMusic ? "green" : "black";
 
-  if (canPlayMusic) {
-    theme.loop = true; 
-    theme.play();
-    updateLightForAudio();
-  } else {
-    theme.pause();
-    theme.currentTime = 0; 
-    if(animationFrameId){
-      cancelAnimationFrame(animationFrameId);
-      animationFrameId = null;
-      
+    if (canPlayMusic) {
+      theme.loop = true;
+      theme.play();
+      updateLightForAudio();
+    } else {
+      theme.pause();
+      theme.currentTime = 0;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+
+      const light = document.getElementById("pokedex-light");
+      light.style.backgroundColor = "black";
     }
-  
-    const light = document.getElementById("pokedex-light");
-    light.style.backgroundColor = "black";
   }
-}
 });
