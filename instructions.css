@@ -11,12 +11,9 @@ body{
     font-family:"Press Start 2P", system-ui;
     padding-top: 80px; 
     text-decoration: none;
+    
 }
-a {
-  all: unset;
-  cursor: pointer; 
-  text-decoration: none;
-    color:#c02020 }
+
 #container{
     display: flex;
     flex-direction: column;
@@ -26,8 +23,29 @@ a {
     width: 100%;
     max-width: 40rem;
     margin: auto;
-    padding: 0 1rem; }
+    padding: 0 1rem;
+    filter: grayscale(100%);
+  }
+a {
+  text-decoration: none;
+  color: #c02020;
+  font: inherit;
+  display: inline-block;
+  cursor: pointer;
+  animation: final 2s ease-in-out infinite;
+  transform-origin: center;
+}
 
+@keyframes final {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100%{    transform: scale(1);
+}
+}
 
 #welcome p {
     text-align: start;
@@ -142,7 +160,9 @@ a {
     display: flex;
     margin-top: 20px;
     margin-bottom: 20px;
-    gap: 10px;
+    gap: 30px;
+    margin-bottom: 50px;
+    margin-top: 50px;
 }
 
 #brasil{
@@ -175,6 +195,33 @@ a {
 a:hover{
     color: white;
     
+}
+
+#soundsSection img{
+  margin-left: -30px;
+  transform: scale(1.10);
+  margin-top: 28px;
+ 
+ 
+}
+
+#soundText{
+  margin-top: 50px;
+}
+
+#status img{
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+#searchSection img{
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+#ligando img{
+   margin-top: 5px;
+  margin-left: 15px;
 }
 
 header, #container, #instructions {

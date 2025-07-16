@@ -323,7 +323,7 @@ const soundsModePt = `
 const soundsModeEn = `
   <h1>Sounds Mode</h1>
   <img src="./assets/soundsMode.png" alt="Pokédex sound modes" style="max-width:100%; border-radius: 10px; margin-bottom: 1rem;">
-  <div class="text">
+  <div class="text" id="soundText">
     <p>By pressing buttons 7, 8, and 9 on your Pokédex, you can toggle between different sound modes!</p>
     <p>Button 9 controls the music: turn it off for stealth or jam to some sweet 8-bit beats!</p>
     <p>Button 8 toggles narration: perfect for quiet reading mode.</p>
@@ -334,7 +334,7 @@ const soundsModeEn = `
 const soundsModeEs = `
   <h1>Modo de Sonido</h1>
   <img src="./assets/soundsMode.png" alt="Modos de sonido de la Pokédex" style="max-width:100%; border-radius: 10px; margin-bottom: 1rem;">
-  <div class="text">
+  <div class="text" id="soundText">
     <p>Al presionar los botones 7, 8 y 9 de tu Pokédex, ¡puedes cambiar entre los modos de sonido!</p>
     <p>El botón 9 controla la música: siléncialo o disfruta de una melodía en 8 bits, tú decides.</p>
     <p>El botón 8 activa o desactiva la narración de los estados. Ideal si prefieres leer en silencio.</p>
@@ -345,7 +345,7 @@ const soundsModeEs = `
 const powerOffPt = `
   <h1>Desligando</h1>
   <img src="./assets/desligando.png" alt="Botão de desligar Pokédex" style="max-width:100%; border-radius: 10px; margin-bottom: 1rem;">
-  <div class="text">
+  <div class="text" id="soundText">
     <p>Pressionando o botão 2 da sua Pokédex, você desliga o sistema por completo.</p>
     <p>Todas as luzes se apagam, a música para e a Pokédex tira um cochilo digital merecido.</p>
     <p>Mas não se preocupe! Quando quiser voltar à ação, é só apertar o botão 1 e mergulhar novamente no mundo Pokémon!</p>
