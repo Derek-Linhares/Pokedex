@@ -404,6 +404,8 @@ function showInstructions() {
   document.getElementById("instructions").style.display = "block";
   document.querySelector("header").style.display = "block";
   document.getElementById("container").style.display = "block";
+  showSection("welcome")
+
   switch (language) {
     case "EN":
       welcome.innerHTML = welcomeEn;

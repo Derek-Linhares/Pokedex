@@ -11,6 +11,7 @@ body{
     font-family:"Press Start 2P", system-ui;
     padding-top: 80px; 
     text-decoration: none;
+   
     
 }
 
@@ -26,6 +27,11 @@ body{
     padding: 0 1rem;
     filter: grayscale(100%);
   }
+
+  p{
+     line-height: 20px;
+  }
+
 a {
   text-decoration: none;
   color: #c02020;
@@ -59,7 +65,7 @@ a {
 
 #welcome{
   width: 100vw;
-  height: 90vh;
+  height: 70vh;
 
 }
 
