@@ -111,6 +111,7 @@ a {
     background-color: gray;
     border-radius: 20px;
     padding: 1rem;
+    z-index: 2;
 }
 
 #topMenu {
@@ -207,23 +208,31 @@ a:hover{
   margin-left: -30px;
   transform: scale(1.10);
   margin-top: 28px;
+  z-index:1;
  
  
 }
 
+
+
 #soundText{
-  margin-top: 50px;
+  position: relative;
+  z-index: 5;
+  margin-top: 0px;
 }
 
 #status img{
   margin-left: 20px;
   margin-top: 15px;
+
 }
 
 #searchSection img{
   margin-top: 15px;
   margin-left: 15px;
 }
+
+img{z-index: 1;}
 
 #ligando img{
    margin-top: 5px;
