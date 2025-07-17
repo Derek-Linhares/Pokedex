@@ -29,16 +29,16 @@
 
             <button id="btnBack" onclick="window.location.href='index.html'">Inicio</button>
             
-            <button id="btnWelcome" onclick="showSection('welcome')">Bem-vindo</button>
-            <button id="btnManual" onclick="showSection('manual')">Guia</button>
-            <button id="btnLigando" onclick="showSection('ligando')">Ligando</button>
-            <button id="btnNavigation" onclick="showSection('navigation')">Navegação</button>
-            <button id="btnStatus" onclick="showSection('status')">Status</button>
-            <button id="btnSearch" onclick="showSection('searchSection')">Busca</button>
-            <button id="btnSounds" onclick="showSection('soundsSection')">Sons</button>
-            <button id="btnDesligando" onclick="showSection('desligandoSection')">Desligando</button>
-            <button id="btnFinal" onclick="showSection('finalSection')">finalSection</button>
-            <button id="btnAll" onclick="showAllSections()">Mostrar todos</button>
+            <button id="btnWelcome" class="menuBtn" onclick="showSection('welcome'); destacarBotao(this)" style="background-color: #c02020;">Bem-vindo</button>
+            <button id="btnManual" class="menuBtn" onclick="showSection('manual'); destacarBotao(this)">Guia</button>
+            <button id="btnLigando" class="menuBtn" onclick="showSection('ligando'); destacarBotao(this)">Ligando</button>
+            <button id="btnNavigation" class="menuBtn" onclick="showSection('navigation'); destacarBotao(this)">Navegação</button>
+            <button id="btnStatus"class="menuBtn" onclick="showSection('status'); destacarBotao(this)">Status</button>
+            <button id="btnSearch" class="menuBtn" onclick="showSection('searchSection'); destacarBotao(this)">Busca</button>
+            <button id="btnSounds" class="menuBtn" onclick="showSection('soundsSection'); destacarBotao(this)">Sons</button>
+            <button id="btnDesligando" class="menuBtn" onclick="showSection('desligandoSection'); destacarBotao(this)">Desligando</button>
+            <button id="btnFinal" class="menuBtn" onclick="showSection('finalSection'); destacarBotao(this)">finalSection</button>
+            <button id="btnAll" class="menuBtn" onclick="showAllSections(); destacarBotao(this)">Mostrar todos</button>
         </nav>
 
 

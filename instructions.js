@@ -138,3 +138,13 @@ function showInstructions() {
 }
 
 updateMenuLanguage(language);
+
+
+function destacarBotao(botaoClicado) {
+  const botoes = document.querySelectorAll('.menuBtn');
+
+  botoes.forEach(btn => {
+    btn.style.backgroundColor = '#5c5b5b'; 
+  });
+
+  botaoClicado.style.backgroundColor = '#c02020'; }
