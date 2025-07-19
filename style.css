@@ -381,10 +381,12 @@ header {
 
 #key-backspace {
   width: 3.5rem;
+  height: 2.45rem;
 }
 
 #key-ok {
   width: 4.5rem;
+  height: 2.45rem;
 }
 
 .key:active {

@@ -204,6 +204,24 @@ a:hover{
     
 }
 
+#arrowNavigation {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#arrowNavigation button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 0 20px;
+    background-color: #c02020;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 #soundsSection img{
   margin-left: -30px;
   transform: scale(1.10);

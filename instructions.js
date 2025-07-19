@@ -148,3 +148,44 @@ function destacarBotao(botaoClicado) {
   });
 
   botaoClicado.style.backgroundColor = '#c02020'; }
+
+
+
+  const sectionIds = [
+    'welcome', 'manual', 'ligando', 'navigation',
+    'status', 'searchSection', 'soundsSection',
+    'desligandoSection', 'finalSection'
+];
+let currentSectionIndex = 0;
+
+function showSectionByIndex(index) {
+    if (index < 0 || index >= sectionIds.length) return;
+    currentSectionIndex = index;
+
+    sectionIds.forEach((id, i) => {
+        const section = document.getElementById(id);
+        section.style.display = i === index ? 'block' : 'none';
+    });
+
+    // Atualiza destaque do botão
+    const buttons = document.querySelectorAll(".menuBtn");
+    buttons.forEach(btn => btn.style.backgroundColor = "");
+    const currentBtn = document.getElementById("btn" + capitalizeFirstLetter(sectionIds[index]));
+    if (currentBtn) currentBtn.style.backgroundColor = "#c02020";
+}
+
+function navigateSection(direction) {
+    const newIndex = currentSectionIndex + direction;
+    if (newIndex >= 0 && newIndex < sectionIds.length) {
+        showSectionByIndex(newIndex);
+    }
+}
+
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// Mostra apenas a primeira seção inicialmente
+document.addEventListener("DOMContentLoaded", () => {
+    showSectionByIndex(currentSectionIndex);
+});
