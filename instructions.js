@@ -9,6 +9,8 @@ let desligandoSection = document.getElementById("desligandoSection");
 let finalSection = document.getElementById("finalSection");
 let language = "PT";
 
+document.addEventListener("DOMContentLoaded", preloadImages);
+
 function preloadImages() {
   const images = [
     "./assets/manualImage.png",
@@ -17,6 +19,10 @@ function preloadImages() {
     "./assets/status.png",
     "./assets/search.png",
     "./assets/soundsMode.png",
+    "./assets/spain.png",
+    "./assets/usa.png",
+    "./assets/brazil.png",
+
   ];
 
   images.forEach((src) => {

@@ -12,6 +12,7 @@ const upArrow = document.getElementById("upArrow");
 const downArrow = document.getElementById("downArrow");
 const statsDiv = document.getElementById("stats");
 const scrollStep = 40;
+document.addEventListener("DOMContentLoaded", preloadBackgrounds);
 
 const backgroundImages = {
   bug: "./assets/backgrounds/bug.png",
@@ -30,10 +31,8 @@ const backgroundImages = {
   poison: "./assets/backgrounds/poison.png",
   psychic: "./assets/backgrounds/psychic.png",
   rock: "./assets/backgrounds/rock.png",
-  /*shadow:  './assets/backgrounds/shadow.png',
-  steel:  './assets/backgrounds/steel.png',
-  unknown:  './assets/backgrounds/unknown.png',*/
   water: "./assets/backgrounds/water.png",
+  startImage: "./assets/startImage.png"
 };
 
 function preloadBackgrounds() {
