@@ -120,6 +120,8 @@ function displayPokemon(pokemon, skipSpeak = false) {
   const pokemonImage = document.getElementById("pokemonImage");
   const tela = document.getElementById("tela");
 
+
+  
   if (isEaster) {
     visor.innerText = "EASTER EGG 🤣🤣🤣";
     pokemonImage.src = "";
@@ -154,22 +156,29 @@ function displayPokemon(pokemon, skipSpeak = false) {
 
   const mainType = pokemon.types?.[0]?.type?.name;
   let backgroundToUse = backgroundImages[mainType] || backgroundImages["grass"];
-  if (backgroundToUse) {
-    tela.style.backgroundImage = `url('${backgroundToUse}')`;
-  }
 
-  if (isFirstLoad) {
+  const imgLoader = new Image();
+  imgLoader.src = spriteToUse;
+
+  imgLoader.onload = () => {
+  
+  
+
+   if (isFirstLoad) {
     setTimeout(() => {
       pokemonImage.src = spriteToUse;
       pokemonImage.style.opacity = 1;
+      pokemonImage.style.transition= "opacity 0.6s ease-in-out"; 
       pokemonImage.style.visibility = "visible";
       isFirstLoad = false;
     }, 3000);
   } else {
+    tela.style.backgroundImage = `url('${backgroundToUse}')`;
     pokemonImage.src = spriteToUse;
+    pokemonImage.style.transition= "none";
     pokemonImage.style.opacity = 1;
     pokemonImage.style.visibility = "visible";
-  }
+  }}
 
   showStats(pokemon, skipSpeak);
 }
