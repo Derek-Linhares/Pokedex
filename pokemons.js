@@ -155,7 +155,8 @@ function displayPokemon(pokemon, skipSpeak = false) {
   pokemonImage.style.visibility = "hidden";
 
   const mainType = pokemon.types?.[0]?.type?.name;
-  let backgroundToUse = backgroundImages[mainType] || backgroundImages["grass"];
+  let backgroundToUse = backgroundImages[mainType] || backgroundImages["grass"];  
+  tela.style.backgroundImage = `url('${backgroundToUse}')`;
 
   const imgLoader = new Image();
   imgLoader.src = spriteToUse;
@@ -173,7 +174,7 @@ function displayPokemon(pokemon, skipSpeak = false) {
       isFirstLoad = false;
     }, 3000);
   } else {
-    tela.style.backgroundImage = `url('${backgroundToUse}')`;
+    
     pokemonImage.src = spriteToUse;
     pokemonImage.style.transition= "none";
     pokemonImage.style.opacity = 1;
