@@ -35,7 +35,7 @@ let dataArray = new Uint8Array(analyser.frequencyBinCount);
 window.addEventListener("load", () => {
   if (localStorage.getItem("autoTurnOn") === "true") {
     localStorage.removeItem("autoTurnOn");
-
+preloadBackgrounds();
     setTimeout(() => {
       startScreen.style.display = "none";
       window.skipSpeakOnce = true;
@@ -66,6 +66,7 @@ function turnOn() {
   if (canOn) {
     localStorage.setItem("autoTurnOn", "true");
     location.reload();
+    preloadBackgrounds();
   }
 }
 
