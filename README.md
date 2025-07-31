@@ -7,8 +7,8 @@ Uma Pokédex moderna e nostálgica, feita com tecnologias puras da web — **HTM
 
 ## 🔗 Acesse agora
 
-- ▶️ **Pokédex Online:** [https://pokedex-omega-indol-83.vercel.app/index.html](https://pokedex-omega-indol-83.vercel.app/index.html)
-- 📘 **Manual de Uso:** [https://pokedex-omega-indol-83.vercel.app/instructions.html](https://pokedex-omega-indol-83.vercel.app/instructions.html)
+- ▶️ **Pokédex Online:** [https://pokedex-omega-indol-83.vercel.app/index.html](https://pokedexjs2025.netlify.app/)
+- 📘 **Manual de Uso:** [https://pokedex-omega-indol-83.vercel.app/instructions.html](https://pokedexjs2025.netlify.app/instructions.html)
 
 ## ✨ Funcionalidades
 
