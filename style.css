@@ -27,11 +27,58 @@ body {
   border-radius: 5%;
   border: 0.5rem solid transparent;
   position: relative;
+}
 
+.text {
+  position: absolute;
+  font-family: sans-serif;
+  font-size: .75rem;
+  font-weight: bolder;
+}
 
+#onText {
+  position: absolute;
+  top: 39.85rem;
+  left: 17rem;
+}
 
+#offText {
+  position: absolute;
+  top: 39.85rem;
+  left: 10.6rem;
+}
 
+#searchText {
+  position: absolute;
+  top: 35.7rem;
+  left: 10.8rem;
+}
 
+#statsText {
+  position: absolute;
+  top: 43.8rem;
+  left: 4.3rem;
+}
+
+#musicText {
+  font-size: .6rem;
+  position: absolute;
+  top: 3.4rem;
+  left: 14.8rem;
+}
+
+#voiceText {
+  font-size: .6rem;
+  position: absolute;
+  top: 3.4rem;
+  left: 12.25rem;
+}
+
+#soundText {
+  font-size: .6rem;
+  position: absolute;
+  top: 3.4rem;
+  left: 9.55rem;
 }
 
 
@@ -445,7 +492,7 @@ header {
   position: absolute;
   top: 6rem;
   left: 6rem;
-  
+
   opacity: 0;
   visibility: hidden;
 }
