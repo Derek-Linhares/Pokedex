@@ -159,7 +159,8 @@ function displayPokemon(pokemon, skipSpeak = false) {
   tela.style.backgroundImage = `url('${backgroundToUse}')`;
 
   const imgLoader = new Image();
-  imgLoader.src = spriteToUse;
+  imgLoader.src = spriteToUse;  
+  pokemonImage.src = spriteToUse;
 
   imgLoader.onload = () => {
   
@@ -175,7 +176,6 @@ function displayPokemon(pokemon, skipSpeak = false) {
     }, 3000);
   } else {
     
-    pokemonImage.src = spriteToUse;
     pokemonImage.style.transition= "none";
     pokemonImage.style.opacity = 1;
     pokemonImage.style.visibility = "visible";
