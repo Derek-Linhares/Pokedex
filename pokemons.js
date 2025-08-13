@@ -12,6 +12,7 @@ const upArrow = document.getElementById("upArrow");
 const downArrow = document.getElementById("downArrow");
 const statsDiv = document.getElementById("stats");
 const scrollStep = 40;
+let canChange = false
 document.addEventListener("DOMContentLoaded", preloadBackgrounds);
 
 const backgroundImages = {
@@ -208,6 +209,7 @@ function displayNotFound() {
 }
 
 leftArrow.addEventListener("click", async () => {
+  if(canChange){
   if (canPlaySound) playAudio(nextAudio);
   if (!canOn && canClick) {
     if (currentIndex > 0) {
@@ -227,9 +229,10 @@ leftArrow.addEventListener("click", async () => {
       }
     }
   }
-});
+}});
 
 rightArrow.addEventListener("click", async () => {
+   if(canChange){
   if (canPlaySound) playAudio(nextAudio);
   if (!canOn && canClick) {
     if (preloadedPokemons[currentIndex].id === 1025) {
@@ -253,7 +256,7 @@ rightArrow.addEventListener("click", async () => {
       }
     }
   }
-});
+}});
 
 async function showStats(pokemon, skipSpeak = false) {
   const nameEl = document.getElementById("stat-name");
@@ -331,11 +334,13 @@ async function showStats(pokemon, skipSpeak = false) {
 }
 
 upArrow.addEventListener("click", () => {
+   if(canChange){
   statsDiv.scrollTop -= scrollStep;
-});
+}});
 
 downArrow.addEventListener("click", () => {
+     if(canChange){
   statsDiv.scrollTop += scrollStep;
-});
+}});
 
 preloadInitial(1);

@@ -15,6 +15,7 @@ let nextAudio = document.getElementById("nextAudio");
 let canPlaySound = false;
 let canPlayMusic = false;
 let canTalk = false;
+let canConfig = false;
 let toggleSound = document.getElementById("toggleSound");
 let toggleMusic = document.getElementById("toggleMusic");
 let toggleTalk = document.getElementById("toggleTalk");
@@ -49,6 +50,8 @@ preloadBackgrounds();
       canPlayMusic = true;
       canPlaySound = true;
       canTalk = true;
+      canChange = true
+      document.querySelector('.mask').style.display = "block"
       toggleMusic.style.backgroundColor = "green";
       toggleSound.style.backgroundColor = "red";
       toggleTalk.style.backgroundColor = "yellow";
@@ -80,6 +83,8 @@ function turnOff() {
   canPlaySound = false;
   canTalk = false;
   canOn = true;
+  canChange = false
+  document.querySelector('.mask').style.display = "none"
   stopAllSounds();
   stopSpeakingLightEffect();
   digitalKeyboard.style.visibility = "hidden";
@@ -221,30 +226,46 @@ select.addEventListener("click", () => {
   }
 });
 
-toggleSound.addEventListener("click", () => {
-  if (canClick) {
+
+
+
+
+
+const options = document.querySelectorAll('#config-menu .option');
+let currentConfig = 0;
+
+const settings = {
+  crt: true,
+  sound: true,
+  music: true,
+  voice: true
+};
+
+function updateMenu() {
+  if(canConfig){
+  options.forEach((opt, i) => {
+    opt.classList.toggle('selected', i === currentConfig);
+    const settingKey = opt.dataset.setting;
+    opt.querySelector('span').textContent = settings[settingKey] ? 'ON' : 'OFF';
+  });
+}}
+
+function toggleCurrentSetting() {
+    if(canConfig){
+  const settingKey = options[currentConfig].dataset.setting;
+  settings[settingKey] = !settings[settingKey];
+  updateMenu();
+
+  if (settingKey === 'crt') {
+    document.querySelector('.mask').style.display = settings.crt ? 'block' : 'none';
+  }
+  else if (settingKey === 'sound') {
     canPlaySound = !canPlaySound;
-    toggleSound.style.backgroundColor = canPlaySound ? "red" : "black";
   }
-});
-
-toggleTalk.addEventListener("click", () => {
-  if (canClick) {
-    canTalk = !canTalk;
-    toggleTalk.style.backgroundColor = canTalk ? "yellow" : "black";
-
-    if (!canTalk && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-
-      stopSpeakingLightEffect();
-    }
-  }
-});
-
-toggleMusic.addEventListener("click", () => {
-  if (canClick) {
+  else if (settingKey === 'music') {
+     if (canClick) {
     canPlayMusic = !canPlayMusic;
-    toggleMusic.style.backgroundColor = canPlayMusic ? "green" : "black";
+   
 
     if (canPlayMusic) {
       theme.loop = true;
@@ -262,4 +283,33 @@ toggleMusic.addEventListener("click", () => {
       light.style.backgroundColor = "black";
     }
   }
+  }
+  else if (settingKey === 'voice') {
+    {
+    canTalk = !canTalk;
+  
+
+    if (!canTalk && "speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+
+      stopSpeakingLightEffect();
+    }
+  }
+  }
+}}
+
+
+downArrow.addEventListener('click', () => {
+  currentConfig = (currentConfig + 1) % options.length;
+  updateMenu();
 });
+
+upArrow.addEventListener('click', () => {
+  currentConfig = (currentConfig - 1 + options.length) % options.length;
+  updateMenu();
+});
+
+leftArrow.addEventListener('click', toggleCurrentSetting);
+rightArrow.addEventListener('click', toggleCurrentSetting);
+
+updateMenu();

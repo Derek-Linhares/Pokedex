@@ -32,7 +32,7 @@ body {
 .text {
   position: absolute;
   font-family: sans-serif;
-  font-size: .75rem;
+  font-size: 0.75rem;
   font-weight: bolder;
 }
 
@@ -60,28 +60,6 @@ body {
   left: 4.3rem;
 }
 
-#musicText {
-  font-size: .6rem;
-  position: absolute;
-  top: 3.4rem;
-  left: 14.8rem;
-}
-
-#voiceText {
-  font-size: .6rem;
-  position: absolute;
-  top: 3.4rem;
-  left: 12.25rem;
-}
-
-#soundText {
-  font-size: .6rem;
-  position: absolute;
-  top: 3.4rem;
-  left: 9.55rem;
-}
-
-
 .pokedex-animation {
   animation: fallBounceSpin 1.5s ease-in-out forwards;
   transform-origin: center;
@@ -90,12 +68,10 @@ body {
 @keyframes fallBounceSpin {
   0% {
     transform: translateY(-500px) rotate(0deg) scale(15);
-
   }
 
   80% {
     transform: translateY(0px) rotate(2160deg) scale(1);
-
   }
 
   85% {
@@ -127,7 +103,7 @@ header {
   height: 6rem;
   background-color: rgb(0, 0, 0);
   border-radius: 100%;
-  border: .5rem solid white;
+  border: 0.5rem solid white;
   position: absolute;
   left: 2.6rem;
   top: 0.9rem;
@@ -156,7 +132,6 @@ header {
   transition: opacity 1.5s ease-in-out;
   visibility: visible;
   z-index: 0;
-
 }
 
 #tela {
@@ -174,7 +149,6 @@ header {
   z-index: 1;
 }
 
-
 #start {
   width: 2560px;
   height: 1440px;
@@ -183,14 +157,11 @@ header {
   background-color: #272525;
   background-size: cover;
   font-family: "Press Start 2P", system-ui;
-  ;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
-
-
 
   z-index: 10;
 }
@@ -220,8 +191,6 @@ header {
   margin-bottom: 1rem;
 }
 
-
-
 #instructions {
   cursor: pointer;
   margin-bottom: 1rem;
@@ -232,7 +201,6 @@ header {
   color: #ffffff;
   margin-bottom: 1rem;
 }
-
 
 #easter {
   width: 21.58rem;
@@ -266,6 +234,82 @@ header {
   z-index: 2;
 }
 
+.mask {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  display: none;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+
+.mask::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+     repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.08) 0px,
+      rgba(255, 255, 255, 0.08) 2px,
+      rgba(0, 0, 0, 0) 4px
+    ),
+   
+      radial-gradient(
+        circle at 50% 50%,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(0, 0, 0, 0.35) 100%
+      );
+  mix-blend-mode: overlay;
+  filter: saturate(1.08) contrast(1.04);
+  animation: crt-flicker 7s steps(120) infinite;
+}
+
+
+.mask::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background:
+    repeating-linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0.08) 0 3px,
+    rgba(0, 255, 0, 0.08) 3px 6px,
+    rgba(0, 0, 255, 0.08) 6px 9px,
+    rgba(0, 0, 0, 0) 9px 12px
+  );
+  mix-blend-mode: soft-light;
+  
+  box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.35),
+    inset 0 0 8px rgba(0, 255, 160, 0.08), 0 0 15px rgba(255, 255, 255, 0.25),
+     0 0 45px rgba(0, 200, 255, 0.15);
+  
+  filter: brightness(1.08) blur(0.3px);
+  
+}
+
+
+@keyframes crt-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  48% {
+    opacity: 0.98;
+  }
+
+  50% {
+    opacity: 0.99;
+  }
+
+  52% {
+    opacity: 0.97;
+  }
+}
+
 #select {
   width: 3.4rem;
   height: 3.4rem;
@@ -277,11 +321,8 @@ header {
   cursor: pointer;
 }
 
-
-
 #select:active {
   transform: translateY(4px);
-
 }
 
 #on {
@@ -293,7 +334,6 @@ header {
   left: 15.1rem;
   cursor: pointer;
   border-radius: 1rem;
-
 }
 
 #off {
@@ -306,19 +346,15 @@ header {
   cursor: pointer;
   border-radius: 1rem;
   visibility: visible;
-
 }
 
 #on:active {
   transform: translateY(2px);
-
 }
 
 #off:active {
   transform: translateY(2px);
-
 }
-
 
 #toggleMusic {
   width: 1.8rem;
@@ -329,8 +365,8 @@ header {
   position: absolute;
   top: 1rem;
   left: 14.2rem;
-  cursor: pointer;
-  transition: ease-in-out .5s;
+
+  transition: ease-in-out 0.5s;
 }
 
 #toggleTalk {
@@ -342,8 +378,7 @@ header {
   position: absolute;
   top: 1rem;
   left: 11.7rem;
-  cursor: pointer;
-  transition: ease-in-out .5s;
+  transition: ease-in-out 0.5s;
 }
 
 #toggleSound {
@@ -355,17 +390,15 @@ header {
   position: absolute;
   top: 1rem;
   left: 9.2rem;
-  cursor: pointer;
-  transition: ease-in-out .5s;
+  transition: ease-in-out 0.5s;
 }
-
 
 #screen {
   background-color: #ffffff;
   border: 4px solid rgb(187, 0, 0);
   padding: 20px;
   margin-bottom: 20px;
-  width: 21.50rem;
+  width: 21.5rem;
   height: 1.5rem;
   text-align: center;
   text-align: left;
@@ -375,7 +408,6 @@ header {
   justify-content: center;
   align-items: center;
 }
-
 
 #digitalKeyboard {
   width: 21.58rem;
@@ -456,9 +488,52 @@ header {
   cursor: pointer;
 }
 
+#config {
+  position: absolute;
+  top: 6.2rem;
+  right: 11rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
+  background-color: rgb(75, 37, 244);
+  border: 0.3rem solid black;
+  cursor: pointer;
+}
+
+#configText {
+  position: absolute;
+  top: 7.3rem;
+  left: 21.3rem;
+}
+
+#config-menu {
+  visibility: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(75, 216, 75);
+  font-weight: bolder;
+  font-family: "Press Start 2P", system-ui;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  text-align: left;
+  flex-direction: column;
+  z-index: 2;
+}
+
+#config-menu .option.selected {
+  color: rgb(255, 255, 254);
+  font-weight: bold;
+}
+
 #search:active {
   transform: translateY(1px);
+}
 
+#config:active {
+  transform: translateY(1px);
 }
 
 #visor {
@@ -480,7 +555,6 @@ header {
   display: flex;
 }
 
-
 #visor.visible {
   opacity: 1;
   visibility: visible;
@@ -495,6 +569,7 @@ header {
 
   opacity: 0;
   visibility: hidden;
+  z-index: 1;
 }
 
 #rightArrow {
@@ -539,12 +614,10 @@ header {
 
 #leftArrow:active {
   transform: translateY(2px);
-
 }
 
 #rightArrow:active {
   transform: translateY(2px);
-
 }
 
 #stats {
@@ -569,15 +642,11 @@ header {
 }
 
 #stat-image {
-
-
   width: 15rem;
   align-self: center;
   justify-self: start;
   top: 0rem;
-
 }
-
 
 .sr-only {
   position: absolute;
@@ -590,9 +659,6 @@ header {
   white-space: nowrap;
   border: 0;
 }
-
-
-
 
 @media (max-width: 319px) {
   body {

@@ -7,6 +7,8 @@ const audio1 = document.getElementById("audio1");
 const audio2 = document.getElementById("audio2");
 const audio3 = document.getElementById("audio3");
 const easter = document.getElementById("easter");
+const configMenu = document.getElementById("config-menu")
+const config = document.getElementById("config")
 const easterEggs = {
   ramon: {
     gif: "./assets/ramon.gif",
@@ -71,8 +73,28 @@ search.addEventListener("click", () => {
   if (!canOn && canClick) {
     if (digitalKeyboard.style.visibility === "visible") {
       digitalKeyboard.style.visibility = "hidden";
+      canChange = true;
     } else {
       digitalKeyboard.style.visibility = "visible";
+      canChange = false;
+    }
+  }
+});
+config.addEventListener("click", () => {
+  const pokemonImage = document.getElementById("pokemonImage");
+  if (canPlaySound) playAudio(selectAudio);
+
+  if (!canOn && canClick) {
+    if (configMenu.style.visibility === "visible") {
+      configMenu.style.visibility = "hidden";
+      canChange = true;
+      canConfig = false;
+       pokemonImage.style.visibility = "visible";
+    } else {
+      configMenu.style.visibility = "visible";
+      canChange = false;
+      canConfig = true;
+      pokemonImage.style.visibility = "hidden";
     }
   }
 });
@@ -128,6 +150,7 @@ function mostrarEasterEgg(nome) {
 
   if (!egg) {
     isEaster = false;
+    canChange = true
     return;
   }
 
@@ -155,5 +178,6 @@ function mostrarEasterEgg(nome) {
     pokemonImage.alt = estadoAnterior.alt || "";
     pokemonImage.style.opacity = 1;
     pokemonImage.style.visibility = "visible";
+    canChange = true;
   }, 3000);
 }

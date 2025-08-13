@@ -39,10 +39,9 @@
       <div id="onText">ON</div>
       <div id="offText">OFF</div>
       <div id="searchText">SEARCH</div>
+      <div id="configText">SETTINGS</div>
       <div id="statsText">STATUS</div>
-      <div id="musicText">MUSIC</div>
-      <div id="voiceText">VOICE</div>
-      <div id="soundText">SOUND</div>
+     
 
     </div>
     <header>
@@ -67,6 +66,13 @@
 
       <div id="tela">
 
+        <div id="config-menu" >
+          <div class="option selected" data-setting="crt">CRT Filter: <span>ON</span></div>
+          <div class="option" data-setting="music">Music: <span>ON</span></div>
+          <div class="option" data-setting="voice">Voice: <span>ON</span></div>
+          <div class="option" data-setting="sound">Sound: <span>ON</span></div>
+        </div>
+
         <div id="easter"></div>
         <img id="pokemonImage"></img>
         <div id="stats" class="stats-screen">
@@ -83,7 +89,7 @@
       </div>
       <div id="telaOff"></div>
 
-      <div id="mask"></div>
+      <div id="mask" class="mask"></div>
       <div class="teclado">
         <div id="select"></div>
         <div id="on" onclick="turnOn()"></div>
@@ -94,6 +100,7 @@
         <div id="rightArrow"></div>
 
         <div id="search"></div>
+        <div id="config"></div>
 
       </div>
       <div id="visor"></div>
