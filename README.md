@@ -1,34 +1,90 @@
-# 📱 Pokédex Interativa - HTML, CSS e JavaScript
+# 📱 Pokédex Interativa Multilíngue — HTML, CSS & JavaScript Puro
 
-![Screenshot 1](https://raw.githubusercontent.com/Derek-Linhares/Pokedex/main/Captura%20de%20tela%202025-07-21%20202413.png)
-![Screenshot 3](https://raw.githubusercontent.com/Derek-Linhares/Pokedex/main/Captura%20de%20tela%202025-07-21%20202453.png)
 
-Uma Pokédex moderna e nostálgica, feita com tecnologias puras da web — **HTML**, **CSS** e **JavaScript**, sem frameworks.
 
-## 🔗 Acesse agora
-
-- ▶️ **Pokédex Online:** [https://pokedex-omega-indol-83.vercel.app/index.html](https://pokedexjs2025.netlify.app/)
-- 📘 **Manual de Uso:** [https://pokedex-omega-indol-83.vercel.app/instructions.html](https://pokedexjs2025.netlify.app/instructions.html)
-
-## ✨ Funcionalidades
-
-- ✅ **1025 Pokémons** disponíveis usando a [PokéAPI](https://pokeapi.co/)
-- ⚡ **Chamadas rápidas e responsivas à API** para uma navegação fluida
-- 🎞️ **Sprites animados** e **parados**, conforme o Pokémon
-- 🔍 **Pesquisa por nome ou ID** com teclado virtual
-- 🥚 **Easter eggs** divertidos escondidos na interface
-- 🌈 **Backgrounds dinâmicos** conforme o tipo do Pokémon
-- 📊 **Menu de status** com estatísticas detalhadas
-- 🗣️ **Leitura por voz** dos status com efeitos visuais
-- 🔉 **Sons e música de fundo** clássicos
-- 🎬 **Animações suaves** para troca de Pokémon e interface
-- 📘 **Manual interativo** com todas as funcionalidades explicadas
-- 🔌 **Função liga/desliga** com tela inicial nostálgica
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)  
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)  
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)  
+![Web Speech API](https://img.shields.io/badge/Web_Speech_API-007ACC?style=for-the-badge&logo=microsoftazure&logoColor=white)
 
 ---
 
-📦 Projeto leve, responsivo e ideal para desktop e dispositivos móveis.  
-🧠 Código limpo e comentado, ideal para estudos, nostalgia e demonstrações.
+Uma Pokédex moderna e nostálgica construída com tecnologias web puras — **HTML5**, **CSS3** e **JavaScript ES6+**, sem frameworks. Foco em performance, acessibilidade, interatividade e experiência imersiva.
 
-> Feito com carinho por fãs de Pokémon, para fãs de Pokémon.  
+## 🌐 Acesse Online
+
+- ▶️ **Pokédex:** [https://pokedexjs2025.netlify.app/](https://pokedexjs2025.netlify.app/)  
+- 📖 **Manual interativo:** [https://pokedexjs2025.netlify.app/instructions.html](https://pokedexjs2025.netlify.app/instructions.html)  
+
+## ✨ Funcionalidades
+
+- ✅ **Mais de 1.000 Pokémons** carregados dinamicamente via [PokéAPI](https://pokeapi.co/)  
+- ⚡ Navegação rápida e responsiva com pré-carregamento inteligente  
+- 🎞️ Sprites animados e estáticos para maior realismo visual  
+- 🔍 Pesquisa avançada por nome ou ID com teclado virtual customizado  
+- 🥚 Easter eggs interativos para diversão e surpresa do usuário  
+- 🌈 Backgrounds dinâmicos que mudam conforme o tipo do Pokémon  
+- 📊 Menu detalhado de status com estatísticas e imagens estáticas  
+- 🗣️ Narração por voz usando Web Speech API, com controle total de áudio  
+- 🔉 Sons e música de fundo clássicos que enriquecem a experiência  
+- 🎬 Animações suaves e transições que melhoram a fluidez da interface  
+- 📘 Manual multilíngue interativo com abas detalhadas em Português, Inglês e Espanhol  
+- 🔌 Função liga/desliga com animações e efeitos de luz para maior imersão  
+- ♿ Foco em acessibilidade: leitor de tela, controle de áudio e visual  
+
+---
+
+## 📦 Tecnologias Utilizadas
+
+- **HTML5** – estrutura semântica e acessível  
+- **CSS3** – design responsivo e animações suaves  
+- **JavaScript ES6+** – lógica, manipulação do DOM e eventos  
+- **Web Speech API** – síntese de voz para narração dos Pokémon  
+- **PokéAPI** – fonte oficial de dados para informações e sprites  
+
+---
+
+## 📷 Capturas de Tela
+
+![Tela Inicial](https://raw.githubusercontent.com/Derek-Linhares/Pokedex/main/Captura%20de%20tela%202025-07-21%20202413.png)  
+*Tela inicial da Pokédex com animações e luzes.*
+
+![Menu de Navegação](https://raw.githubusercontent.com/Derek-Linhares/Pokedex/main/Captura%20de%20tela%202025-07-21%20202453.png)  
+*Navegação entre Pokémon, status e configurações.*
+
+
+---
+
+
+
+## 🚀 Como Executar Localmente
+
+1. Clone o repositório:  
+   ```bash
+   git clone https://github.com/Derek-Linhares/Pokedex.git
+
+2- Abra index.html no navegador de sua preferência.
+
+---
+
+## 💡 Demos & Easter Eggs
+
+- Pesquise palavras-chave no teclado virtual para ativar easter eggs divertidos.  
+- Controle completo de som, música, narração e filtro CRT via menu de configurações.
+
+---
+
+## 🤝 Contribuições
+
+Contribuições são bem-vindas! Abra uma issue ou envie um pull request para melhorias, correções ou novas funcionalidades.
+
+---
+
+## 🧑‍💻 Sobre o Autor
+
+Feito com paixão por fãs de Pokémon para fãs. Este projeto combina nostalgia e tecnologia moderna para criar uma experiência única e acessível.
+
+---
+
 > Gotta catch ’em all! 🔴🟡🟢
+
