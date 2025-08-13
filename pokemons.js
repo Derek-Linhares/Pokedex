@@ -12,7 +12,7 @@ const upArrow = document.getElementById("upArrow");
 const downArrow = document.getElementById("downArrow");
 const statsDiv = document.getElementById("stats");
 const scrollStep = 40;
-let canChange = false
+let canChange = false;
 document.addEventListener("DOMContentLoaded", preloadBackgrounds);
 
 const backgroundImages = {
@@ -33,7 +33,7 @@ const backgroundImages = {
   psychic: "./assets/backgrounds/psychic.png",
   rock: "./assets/backgrounds/rock.png",
   water: "./assets/backgrounds/water.png",
-  startImage: "./assets/startImage.png"
+  startImage: "./assets/startImage.png",
 };
 
 function preloadBackgrounds() {
@@ -121,8 +121,6 @@ function displayPokemon(pokemon, skipSpeak = false) {
   const pokemonImage = document.getElementById("pokemonImage");
   const tela = document.getElementById("tela");
 
-
-  
   if (isEaster) {
     visor.innerText = "EASTER EGG 🤣🤣🤣";
     pokemonImage.src = "";
@@ -156,31 +154,28 @@ function displayPokemon(pokemon, skipSpeak = false) {
   pokemonImage.style.visibility = "hidden";
 
   const mainType = pokemon.types?.[0]?.type?.name;
-  let backgroundToUse = backgroundImages[mainType] || backgroundImages["grass"];  
+  let backgroundToUse = backgroundImages[mainType] || backgroundImages["grass"];
   tela.style.backgroundImage = `url('${backgroundToUse}')`;
 
   const imgLoader = new Image();
-  imgLoader.src = spriteToUse;  
+  imgLoader.src = spriteToUse;
   pokemonImage.src = spriteToUse;
 
   imgLoader.onload = () => {
-  
-  
-
-   if (isFirstLoad) {
-    setTimeout(() => {
-      pokemonImage.src = spriteToUse;
+    if (isFirstLoad) {
+      setTimeout(() => {
+        pokemonImage.src = spriteToUse;
+        pokemonImage.style.opacity = 1;
+        pokemonImage.style.transition = "opacity 0.6s ease-in-out";
+        pokemonImage.style.visibility = "visible";
+        isFirstLoad = false;
+      }, 3000);
+    } else {
+      pokemonImage.style.transition = "none";
       pokemonImage.style.opacity = 1;
-      pokemonImage.style.transition= "opacity 0.6s ease-in-out"; 
       pokemonImage.style.visibility = "visible";
-      isFirstLoad = false;
-    }, 3000);
-  } else {
-    
-    pokemonImage.style.transition= "none";
-    pokemonImage.style.opacity = 1;
-    pokemonImage.style.visibility = "visible";
-  }}
+    }
+  };
 
   showStats(pokemon, skipSpeak);
 }
@@ -209,54 +204,56 @@ function displayNotFound() {
 }
 
 leftArrow.addEventListener("click", async () => {
-  if(canChange){
-  if (canPlaySound) playAudio(nextAudio);
-  if (!canOn && canClick) {
-    if (currentIndex > 0) {
-      currentIndex--;
-      displayPokemon(preloadedPokemons[currentIndex]);
-    } else {
-      const newId = preloadedPokemons[0].id - 1;
-      if (newId >= 1) {
-        try {
-          const newPokemon = await fetchPokemon(newId);
-          preloadedPokemons.pop();
-          preloadedPokemons.unshift(newPokemon);
-          displayPokemon(newPokemon);
-        } catch (e) {
-          displayNotFound();
+  if (canChange) {
+    if (canPlaySound) playAudio(nextAudio);
+    if (!canOn && canClick) {
+      if (currentIndex > 0) {
+        currentIndex--;
+        displayPokemon(preloadedPokemons[currentIndex]);
+      } else {
+        const newId = preloadedPokemons[0].id - 1;
+        if (newId >= 1) {
+          try {
+            const newPokemon = await fetchPokemon(newId);
+            preloadedPokemons.pop();
+            preloadedPokemons.unshift(newPokemon);
+            displayPokemon(newPokemon);
+          } catch (e) {
+            displayNotFound();
+          }
         }
       }
     }
   }
-}});
+});
 
 rightArrow.addEventListener("click", async () => {
-   if(canChange){
-  if (canPlaySound) playAudio(nextAudio);
-  if (!canOn && canClick) {
-    if (preloadedPokemons[currentIndex].id === 1025) {
-      return;
-    }
+  if (canChange) {
+    if (canPlaySound) playAudio(nextAudio);
+    if (!canOn && canClick) {
+      if (preloadedPokemons[currentIndex].id === 1025) {
+        return;
+      }
 
-    if (currentIndex < preloadedPokemons.length - 1) {
-      currentIndex++;
-      displayPokemon(preloadedPokemons[currentIndex]);
-    } else {
-      const newId = preloadedPokemons[preloadedPokemons.length - 1].id + 1;
-      if (newId <= 1025) {
-        try {
-          const newPokemon = await fetchPokemon(newId);
-          preloadedPokemons.shift();
-          preloadedPokemons.push(newPokemon);
-          displayPokemon(newPokemon);
-        } catch (e) {
-          displayNotFound();
+      if (currentIndex < preloadedPokemons.length - 1) {
+        currentIndex++;
+        displayPokemon(preloadedPokemons[currentIndex]);
+      } else {
+        const newId = preloadedPokemons[preloadedPokemons.length - 1].id + 1;
+        if (newId <= 1025) {
+          try {
+            const newPokemon = await fetchPokemon(newId);
+            preloadedPokemons.shift();
+            preloadedPokemons.push(newPokemon);
+            displayPokemon(newPokemon);
+          } catch (e) {
+            displayNotFound();
+          }
         }
       }
     }
   }
-}});
+});
 
 async function showStats(pokemon, skipSpeak = false) {
   const nameEl = document.getElementById("stat-name");
@@ -334,13 +331,34 @@ async function showStats(pokemon, skipSpeak = false) {
 }
 
 upArrow.addEventListener("click", () => {
-   if(canChange){
-  statsDiv.scrollTop -= scrollStep;
-}});
+  if (canChange) {
+    statsDiv.scrollTop -= scrollStep;
+  }
+});
 
 downArrow.addEventListener("click", () => {
-     if(canChange){
-  statsDiv.scrollTop += scrollStep;
-}});
+  if (canChange) {
+    statsDiv.scrollTop += scrollStep;
+  }
+});
+
+statsDiv.addEventListener("wheel", (e) => e.preventDefault(), {
+  passive: false,
+});
+statsDiv.addEventListener("touchmove", (e) => e.preventDefault(), {
+  passive: false,
+});
+statsDiv.addEventListener("keydown", (e) => {
+  const keys = [
+    "ArrowUp",
+    "ArrowDown",
+    "PageUp",
+    "PageDown",
+    "Home",
+    "End",
+    " ",
+  ];
+  if (keys.includes(e.key)) e.preventDefault();
+});
 
 preloadInitial(1);

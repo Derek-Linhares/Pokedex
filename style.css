@@ -231,7 +231,7 @@ header {
   position: absolute;
   left: 6rem;
   top: 12rem;
-  z-index: 2;
+  z-index: 4;
 }
 
 .mask {
@@ -250,18 +250,14 @@ header {
   position: absolute;
   inset: 0;
   background:
-     repeating-linear-gradient(
-      to bottom,
+    repeating-linear-gradient(to bottom,
       rgba(255, 255, 255, 0.08) 0px,
       rgba(255, 255, 255, 0.08) 2px,
-      rgba(0, 0, 0, 0) 4px
-    ),
-   
-      radial-gradient(
-        circle at 50% 50%,
-        rgba(0, 0, 0, 0) 50%,
-        rgba(0, 0, 0, 0.35) 100%
-      );
+      rgba(0, 0, 0, 0) 4px),
+
+    radial-gradient(circle at 50% 50%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0.35) 100%);
   mix-blend-mode: overlay;
   filter: saturate(1.08) contrast(1.04);
   animation: crt-flicker 7s steps(120) infinite;
@@ -273,25 +269,24 @@ header {
   position: absolute;
   inset: -1px;
   background:
-    repeating-linear-gradient(
-    to right,
-    rgba(255, 0, 0, 0.08) 0 3px,
-    rgba(0, 255, 0, 0.08) 3px 6px,
-    rgba(0, 0, 255, 0.08) 6px 9px,
-    rgba(0, 0, 0, 0) 9px 12px
-  );
+    repeating-linear-gradient(to right,
+      rgba(255, 0, 0, 0.08) 0 3px,
+      rgba(0, 255, 0, 0.08) 3px 6px,
+      rgba(0, 0, 255, 0.08) 6px 9px,
+      rgba(0, 0, 0, 0) 9px 12px);
   mix-blend-mode: soft-light;
-  
+
   box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.35),
     inset 0 0 8px rgba(0, 255, 160, 0.08), 0 0 15px rgba(255, 255, 255, 0.25),
-     0 0 45px rgba(0, 200, 255, 0.15);
-  
+    0 0 45px rgba(0, 200, 255, 0.15);
+
   filter: brightness(1.08) blur(0.3px);
-  
+
 }
 
 
 @keyframes crt-flicker {
+
   0%,
   100% {
     opacity: 1;
@@ -436,7 +431,7 @@ header {
   flex-wrap: wrap;
   grid-template-columns: repeat(10, 30px);
   gap: 5px;
-  z-index: 5;
+  z-index: 3;
 }
 
 .key {
@@ -635,10 +630,16 @@ header {
   align-items: start;
   flex-direction: column;
   text-align: start;
-  pointer-events: auto;
   z-index: 1;
-  overflow: auto;
+  overflow-y: scroll;
   visibility: hidden;
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: none;
+}
+
+#stats #text {
+  padding: 0rem 1.5rem;
 }
 
 #stat-image {
@@ -659,6 +660,9 @@ header {
   white-space: nowrap;
   border: 0;
 }
+
+
+
 
 @media (max-width: 319px) {
   body {

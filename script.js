@@ -33,10 +33,26 @@ analyser.fftSize = 256;
 let source = null;
 let dataArray = new Uint8Array(analyser.frequencyBinCount);
 
+window.addEventListener(
+  "wheel",
+  function (e) {
+    e.preventDefault();
+  },
+  { passive: false }
+);
+
+window.addEventListener(
+  "touchmove",
+  function (e) {
+    e.preventDefault();
+  },
+  { passive: false }
+);
+
 window.addEventListener("load", () => {
   if (localStorage.getItem("autoTurnOn") === "true") {
     localStorage.removeItem("autoTurnOn");
-preloadBackgrounds();
+    preloadBackgrounds();
     setTimeout(() => {
       startScreen.style.display = "none";
       window.skipSpeakOnce = true;
@@ -50,8 +66,8 @@ preloadBackgrounds();
       canPlayMusic = true;
       canPlaySound = true;
       canTalk = true;
-      canChange = true
-      document.querySelector('.mask').style.display = "block"
+      canChange = true;
+      document.querySelector(".mask").style.display = "block";
       toggleMusic.style.backgroundColor = "green";
       toggleSound.style.backgroundColor = "red";
       toggleTalk.style.backgroundColor = "yellow";
@@ -83,8 +99,8 @@ function turnOff() {
   canPlaySound = false;
   canTalk = false;
   canOn = true;
-  canChange = false
-  document.querySelector('.mask').style.display = "none"
+  canChange = false;
+  document.querySelector(".mask").style.display = "none";
   stopAllSounds();
   stopSpeakingLightEffect();
   digitalKeyboard.style.visibility = "hidden";
@@ -216,100 +232,97 @@ function speak(text) {
 }
 
 select.addEventListener("click", () => {
-  if (canPlaySound) {
-    playAudio(selectAudio);
-  }
-  if (canClick && !canOn) {
-    const currentVisibility = getComputedStyle(stats).visibility;
-    stats.style.visibility =
-      currentVisibility === "hidden" ? "visible" : "hidden";
+  if (canShowStatsMenu) {
+    if (canPlaySound) {
+      playAudio(selectAudio);
+    }
+    if (canClick && !canOn) {
+      const currentVisibility = getComputedStyle(stats).visibility;
+      stats.style.visibility =
+        currentVisibility === "hidden" ? "visible" : "hidden";
+    }
   }
 });
 
-
-
-
-
-
-const options = document.querySelectorAll('#config-menu .option');
+const options = document.querySelectorAll("#config-menu .option");
 let currentConfig = 0;
 
 const settings = {
   crt: true,
   sound: true,
   music: true,
-  voice: true
+  voice: true,
 };
 
 function updateMenu() {
-  if(canConfig){
-  options.forEach((opt, i) => {
-    opt.classList.toggle('selected', i === currentConfig);
-    const settingKey = opt.dataset.setting;
-    opt.querySelector('span').textContent = settings[settingKey] ? 'ON' : 'OFF';
-  });
-}}
+  if (canConfig) {
+    options.forEach((opt, i) => {
+      opt.classList.toggle("selected", i === currentConfig);
+      const settingKey = opt.dataset.setting;
+      opt.querySelector("span").textContent = settings[settingKey]
+        ? "ON"
+        : "OFF";
+    });
+  }
+}
 
 function toggleCurrentSetting() {
-    if(canConfig){
-  const settingKey = options[currentConfig].dataset.setting;
-  settings[settingKey] = !settings[settingKey];
-  updateMenu();
+  if (canConfig) {
+    const settingKey = options[currentConfig].dataset.setting;
+    settings[settingKey] = !settings[settingKey];
+    updateMenu();
 
-  if (settingKey === 'crt') {
-    document.querySelector('.mask').style.display = settings.crt ? 'block' : 'none';
-  }
-  else if (settingKey === 'sound') {
-    canPlaySound = !canPlaySound;
-  }
-  else if (settingKey === 'music') {
-     if (canClick) {
-    canPlayMusic = !canPlayMusic;
-   
+    if (settingKey === "crt") {
+      document.querySelector(".mask").style.display = settings.crt
+        ? "block"
+        : "none";
+    } else if (settingKey === "sound") {
+      canPlaySound = !canPlaySound;
+    } else if (settingKey === "music") {
+      if (canClick) {
+        canPlayMusic = !canPlayMusic;
 
-    if (canPlayMusic) {
-      theme.loop = true;
-      theme.play();
-      updateLightForAudio();
-    } else {
-      theme.pause();
-      theme.currentTime = 0;
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-        animationFrameId = null;
+        if (canPlayMusic) {
+          theme.loop = true;
+          theme.play();
+          updateLightForAudio();
+        } else {
+          theme.pause();
+          theme.currentTime = 0;
+          if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = null;
+          }
+
+          const light = document.getElementById("pokedex-light");
+          light.style.backgroundColor = "black";
+        }
       }
+    } else if (settingKey === "voice") {
+      {
+        canTalk = !canTalk;
 
-      const light = document.getElementById("pokedex-light");
-      light.style.backgroundColor = "black";
+        if (!canTalk && "speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
+
+          stopSpeakingLightEffect();
+        }
+      }
     }
   }
-  }
-  else if (settingKey === 'voice') {
-    {
-    canTalk = !canTalk;
-  
+}
 
-    if (!canTalk && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-
-      stopSpeakingLightEffect();
-    }
-  }
-  }
-}}
-
-
-downArrow.addEventListener('click', () => {
+downArrow.addEventListener("click", () => {
   currentConfig = (currentConfig + 1) % options.length;
   updateMenu();
 });
 
-upArrow.addEventListener('click', () => {
+upArrow.addEventListener("click", () => {
   currentConfig = (currentConfig - 1 + options.length) % options.length;
   updateMenu();
 });
 
-leftArrow.addEventListener('click', toggleCurrentSetting);
-rightArrow.addEventListener('click', toggleCurrentSetting);
+leftArrow.addEventListener("click", toggleCurrentSetting);
+rightArrow.addEventListener("click", toggleCurrentSetting);
 
 updateMenu();

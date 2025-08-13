@@ -7,8 +7,8 @@ const audio1 = document.getElementById("audio1");
 const audio2 = document.getElementById("audio2");
 const audio3 = document.getElementById("audio3");
 const easter = document.getElementById("easter");
-const configMenu = document.getElementById("config-menu")
-const config = document.getElementById("config")
+const configMenu = document.getElementById("config-menu");
+const config = document.getElementById("config");
 const easterEggs = {
   ramon: {
     gif: "./assets/ramon.gif",
@@ -67,34 +67,59 @@ keys.forEach((k) => {
   keyboard.appendChild(btn);
 });
 
+function hideAllMenus() {
+  digitalKeyboard.style.visibility = "hidden";
+  configMenu.style.visibility = "hidden";
+  stats.style.visibility = "hidden";
+
+  const pokemonImage = document.getElementById("pokemonImage");
+  if (pokemonImage) pokemonImage.style.visibility = "visible";
+
+  canChange = true;
+  canConfig = false;
+}
+
 search.addEventListener("click", () => {
   if (canPlaySound) playAudio(selectAudio);
 
   if (!canOn && canClick) {
-    if (digitalKeyboard.style.visibility === "visible") {
-      digitalKeyboard.style.visibility = "hidden";
-      canChange = true;
-    } else {
+    const isVisible = digitalKeyboard.style.visibility === "visible";
+    hideAllMenus();
+
+    if (!isVisible) {
       digitalKeyboard.style.visibility = "visible";
       canChange = false;
     }
   }
 });
+
 config.addEventListener("click", () => {
-  const pokemonImage = document.getElementById("pokemonImage");
   if (canPlaySound) playAudio(selectAudio);
 
   if (!canOn && canClick) {
-    if (configMenu.style.visibility === "visible") {
-      configMenu.style.visibility = "hidden";
-      canChange = true;
-      canConfig = false;
-       pokemonImage.style.visibility = "visible";
-    } else {
+    const isVisible = configMenu.style.visibility === "visible";
+    hideAllMenus();
+
+    if (!isVisible) {
       configMenu.style.visibility = "visible";
       canChange = false;
       canConfig = true;
-      pokemonImage.style.visibility = "hidden";
+
+      const pokemonImage = document.getElementById("pokemonImage");
+      if (pokemonImage) pokemonImage.style.visibility = "hidden";
+    }
+  }
+});
+
+select.addEventListener("click", () => {
+  if (canClick && !canOn) {
+    if (canPlaySound) playAudio(selectAudio);
+
+    const isVisible = stats.style.visibility === "visible";
+    hideAllMenus();
+
+    if (!isVisible) {
+      stats.style.visibility = "visible";
     }
   }
 });
@@ -150,7 +175,7 @@ function mostrarEasterEgg(nome) {
 
   if (!egg) {
     isEaster = false;
-    canChange = true
+    canChange = true;
     return;
   }
 
